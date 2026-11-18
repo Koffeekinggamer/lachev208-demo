@@ -169,6 +169,17 @@ p { margin: 0; }
     radial-gradient(70% 60% at 0% 80%, rgba(28, 20, 32, 0.28), transparent 60%),
     radial-gradient(70% 60% at 100% 80%, rgba(28, 20, 32, 0.28), transparent 60%),
     linear-gradient(180deg, rgba(28, 20, 32, 0.18) 0%, rgba(28, 20, 32, 0.1) 40%, rgba(28, 20, 32, 0.72) 100%); }
+/* Slideshow pause/play (WCAG 2.2.2). Sits at the photo's lower right on desktop, upper right of the photo on phones. */
+.hero__pause { position: absolute; z-index: 4; right: var(--gutter); bottom: var(--s4); width: 2.75rem; height: 2.75rem; padding: 0; display: inline-grid; place-items: center;
+  border: 1px solid rgba(247, 243, 236, 0.7); border-radius: 50%; background: rgba(28, 20, 32, 0.62); color: var(--paper); cursor: pointer;
+  transition: background-color 0.25s ease, border-color 0.25s ease; -webkit-tap-highlight-color: transparent; }
+.hero__pause[hidden] { display: none; }
+.hero__pause:hover { background: var(--plum); border-color: var(--paper); }
+.hero__pause:focus-visible { outline: 2px solid var(--paper); outline-offset: 2px; box-shadow: 0 0 0 5px var(--plum); border-radius: 50%; }
+.hero__pause-icon { width: 1.125rem; height: 1.125rem; fill: currentColor; pointer-events: none; }
+.hero__pause[data-state="playing"] .hero__pause-icon--play, .hero__pause[data-state="paused"] .hero__pause-icon--pause { display: none; }
+.motion:not(.reduce-motion) .hero.is-paused .hero__slide[data-ken] img { animation-play-state: paused; }
+.reduce-motion .hero__pause { display: none; }
 .hero__copy { padding-block: var(--s6) var(--s5); display: grid; gap: var(--s3); max-width: 44rem; transform: translate3d(0, var(--copy-y, 0px), 0); }
 .hero__copy .eyebrow { color: var(--paper); }
 .hero__copy p { font-size: clamp(1.0625rem, 1.5vw, 1.25rem); max-width: 34em; color: #f3ede4; }
@@ -438,6 +449,8 @@ address { font-style: normal; }
   .status.is-open .status__dot { background: #2f6b3a; }
   .hero__media { position: relative; inset: auto; z-index: auto; transform: none !important; will-change: auto; aspect-ratio: 4 / 3; width: 100%; }
   .hero__slides { position: absolute; inset: 0; }
+  /* Photo is the last block of the hero (4:3 phones, 3:2 tablets): pin the button to its upper right, clear of the bottom action bar */
+  .hero__pause { right: var(--gutter); bottom: calc(75vw - 3.5rem); }
 
   /* Inner pages: same text-first header, image below */
   .page-hero { display: flex; flex-direction: column; min-height: 0; color: var(--ink); overflow: visible; isolation: auto; }
@@ -450,6 +463,7 @@ address { font-style: normal; }
 }
 @media (min-width: 760px) and (max-width: 1023px) {
   .hero__media { aspect-ratio: 3 / 2; }
+  .hero__pause { bottom: calc(66.667vw - 3.5rem); }
   .page-hero .hero__media { aspect-ratio: 2 / 1; }
   .header-reserve { display: inline-flex; }
 }

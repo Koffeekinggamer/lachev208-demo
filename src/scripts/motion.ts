@@ -159,32 +159,99 @@ whenIdle(() => {
 });
 
 /* Hero stills: Ken Burns is CSS; additional slides load after `load` and crossfade */
+/* Hero rotation. WCAG 2.2.2: a visible pause/play button, plus automatic pause while the pointer is over the
+   hero (hover devices) or keyboard focus is inside it. Reduced motion never starts rotation or shows the button. */
+const heroSection = document.querySelector<HTMLElement>(".hero:not(.page-hero)");
+const pauseBtn = document.querySelector<HTMLButtonElement>("[data-hero-pause]");
+let heroStarted = false;
+let userPaused = false;
+let hoverPaused = false;
+let focusPaused = false;
+let heroTimer: number | undefined;
+let heroIndex = 0;
+const heroSlides = () => Array.from(document.querySelectorAll<HTMLElement>("[data-hero-slides] .hero__slide"));
+const heroPaused = () => userPaused || hoverPaused || focusPaused;
+
+function heroAdvance() {
+  const s = heroSlides();
+  if (s.length < 2) return;
+  // Outgoing slide stays fully opaque underneath while the next one fades in on top (no dip to the background).
+  const out = s[heroIndex];
+  out.classList.remove("is-current");
+  out.classList.add("is-leaving");
+  out.setAttribute("aria-hidden", "true");
+  setTimeout(() => out.classList.remove("is-leaving"), 1800);
+  heroIndex = (heroIndex + 1) % s.length;
+  s[heroIndex].classList.add("is-current");
+  s[heroIndex].removeAttribute("aria-hidden");
+}
+
+function heroSchedule() {
+  window.clearTimeout(heroTimer);
+  heroTimer = undefined;
+  if (!heroStarted || reduce || heroPaused()) return;
+  // ~6.5 s per slide, slow 1.6 s crossfade (CSS). A hidden tab skips its turn; resuming restarts the full dwell.
+  heroTimer = window.setTimeout(() => {
+    if (!reduce && !document.hidden && !heroPaused()) heroAdvance();
+    heroSchedule();
+  }, 6500);
+}
+
+function heroSync() {
+  heroSection?.classList.toggle("is-paused", heroPaused());
+  heroSchedule();
+}
+
+function setPauseLabel() {
+  if (!pauseBtn) return;
+  pauseBtn.setAttribute("aria-label", userPaused ? "Play slideshow" : "Pause slideshow");
+  pauseBtn.dataset.state = userPaused ? "paused" : "playing";
+}
+
 function startHeroSlides() {
   const rootSlides = document.querySelector("[data-hero-slides]");
   const tpl = document.querySelector<HTMLTemplateElement>("template[data-hero-more]");
-  if (!rootSlides || reduce) return;
+  if (!rootSlides || reduce || heroStarted) return;
   if (tpl?.content) rootSlides.append(tpl.content.cloneNode(true));
-  const slides = () => Array.from(rootSlides.querySelectorAll(".hero__slide"));
-  if (slides().length < 2) return;
+  if (heroSlides().length < 2) return;
   // Only the visible slide is announced to screen readers; the rest are hidden until their turn.
-  slides().forEach((el) => { if (!el.classList.contains("is-current")) el.setAttribute("aria-hidden", "true"); });
-  let i = 0;
-  // ~6.5 s per slide, slow 1.6 s crossfade (CSS). Skips turns while the tab is hidden or reduced motion is on.
-  setInterval(() => {
-    if (reduce || document.hidden) return;
-    const s = slides();
-    if (s.length < 2) return;
-    // Outgoing slide stays fully opaque underneath while the next one fades in on top (no dip to the background).
-    const out = s[i];
-    out.classList.remove("is-current");
-    out.classList.add("is-leaving");
-    out.setAttribute("aria-hidden", "true");
-    setTimeout(() => out.classList.remove("is-leaving"), 1800);
-    i = (i + 1) % s.length;
-    s[i].classList.add("is-current");
-    s[i].removeAttribute("aria-hidden");
-  }, 6500);
+  heroSlides().forEach((el) => { if (!el.classList.contains("is-current")) el.setAttribute("aria-hidden", "true"); });
+  heroIndex = 0;
+  heroStarted = true;
+  if (pauseBtn) { pauseBtn.hidden = false; setPauseLabel(); }
+  heroSync();
 }
+
+function stopHeroSlides() {
+  heroStarted = false;
+  window.clearTimeout(heroTimer);
+  heroTimer = undefined;
+  heroSection?.classList.remove("is-paused");
+  if (pauseBtn) pauseBtn.hidden = true;
+}
+
+pauseBtn?.addEventListener("click", () => {
+  userPaused = !userPaused;
+  setPauseLabel();
+  heroSync();
+});
+if (heroSection) {
+  const canHover = matchMedia("(hover: hover) and (pointer: fine)");
+  heroSection.addEventListener("mouseover", (e) => {
+    if (!canHover.matches) return;
+    // The button itself is the user's control, so pointing at it must not read as "pause for hover".
+    hoverPaused = !(e.target as Element).closest("[data-hero-pause]");
+    heroSync();
+  });
+  heroSection.addEventListener("mouseleave", () => { hoverPaused = false; heroSync(); });
+  heroSection.addEventListener("focusin", (e) => {
+    const t = e.target as HTMLElement;
+    focusPaused = !t.closest("[data-hero-pause]") && t.matches(":focus-visible");
+    heroSync();
+  });
+  heroSection.addEventListener("focusout", () => { focusPaused = false; heroSync(); });
+}
+document.addEventListener("visibilitychange", heroSync);
 addEventListener("load", () => startHeroSlides(), { once: true });
 
 /* Drink/food sticky nav: fade + arrow when more items are off to the right */
@@ -224,6 +291,7 @@ reduceQ.addEventListener("change", (e) => {
     revealables.forEach((el) => el.classList.add("is-in"));
     media.forEach((el) => el.style.removeProperty("--py"));
     heroCopy?.style.removeProperty("--copy-y");
+    stopHeroSlides();
     document.querySelectorAll(".hero__slide:not(.is-current)").forEach((el) => el.remove());
   } else { request(); startHeroSlides(); }
 });
