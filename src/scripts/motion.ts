@@ -23,7 +23,11 @@ const setMenu = (open: boolean) => {
   if (!toggle || !nav) return;
   nav.classList.toggle("is-open", open);
   toggle.setAttribute("aria-expanded", String(open));
+  root.classList.toggle("menu-open", open);
+  // While the sheet is open, the page behind it is inert (no tab stops, no taps).
+  document.querySelectorAll<HTMLElement>("main, .site-footer, .actionbar").forEach((el) => { if (open) el.setAttribute("inert", ""); else el.removeAttribute("inert"); });
 };
+desktopQ.addEventListener("change", (e) => { if (e.matches) setMenu(false); });
 toggle?.addEventListener("click", () => setMenu(toggle.getAttribute("aria-expanded") !== "true"));
 nav?.querySelectorAll("a").forEach((a) => a.addEventListener("click", () => !desktopQ.matches && setMenu(false)));
 document.addEventListener("keydown", (e) => { if (e.key === "Escape" && toggle?.getAttribute("aria-expanded") === "true") { setMenu(false); toggle.focus(); } });
@@ -46,6 +50,27 @@ document.addEventListener("click", (e) => {
   history.pushState(null, "", href);
 });
 
+/* Open / closed status line (America/New_York). Static text is the no-JS fallback. */
+const HOURS: Record<number, [number, number]> = { 0: [600, 1260], 1: [660, 1320], 2: [660, 1320], 3: [660, 1320], 4: [660, 1320], 5: [660, 1380], 6: [660, 1380] };
+const clock = (m: number) => { const h = Math.floor(m / 60), mm = m % 60; return `${((h + 11) % 12) + 1}${mm ? ":" + String(mm).padStart(2, "0") : ""} ${h < 12 ? "a.m." : "p.m."}`; };
+function paintStatus() {
+  const els = document.querySelectorAll<HTMLElement>("[data-open-status]");
+  if (!els.length) return;
+  const parts: Record<string, string> = {};
+  new Intl.DateTimeFormat("en-US", { timeZone: "America/New_York", weekday: "short", hour: "numeric", minute: "numeric", hourCycle: "h23" })
+    .formatToParts(new Date()).forEach((p) => { parts[p.type] = p.value; });
+  const day = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].indexOf(parts.weekday);
+  const now = (Number(parts.hour) % 24) * 60 + Number(parts.minute);
+  const [open, close] = HOURS[day];
+  let isOpen = false, text: string;
+  if (now >= open && now < close) { isOpen = true; text = close - now <= 60 ? `Open now · closes at ${clock(close)}` : `Open now · until ${clock(close)}`; }
+  else if (now < open) text = `Closed · opens today at ${clock(open)}`;
+  else { const next = (day + 1) % 7; text = `Closed · opens tomorrow at ${clock(HOURS[next][0])}`; }
+  els.forEach((el) => { el.classList.toggle("is-open", isOpen); const t = el.querySelector(".status__text"); if (t) t.textContent = text; });
+}
+paintStatus();
+setInterval(paintStatus, 60000);
+
 /* Header state */
 const header = document.querySelector(".site-header");
 
@@ -65,16 +90,15 @@ const revealInView = () => {
 const io = "IntersectionObserver" in window
   ? new IntersectionObserver((entries) => {
       for (const en of entries) if (en.isIntersecting) { en.target.classList.add("is-in"); io!.unobserve(en.target); }
-    }, { rootMargin: "0px 0px 0px 0px", threshold: 0.01 })
+    }, { rootMargin: "0px 0px -8% 0px", threshold: 0.08 })
   : null;
 revealables.forEach((el) => (io ? io.observe(el) : el.classList.add("is-in")));
 revealInView();
 requestAnimationFrame(() => requestAnimationFrame(revealInView));
-const revealAll = () => {
-  revealables.forEach((el) => el.classList.add("is-in"));
-  root.classList.add("reveal-failsafe");
-};
-setTimeout(revealAll, 1500);
+// Safety net: anything on screen that IO missed is revealed (with its normal transition).
+// Off-screen sections keep waiting for their scroll reveal; only a missing IntersectionObserver reveals everything.
+if (!io) root.classList.add("reveal-failsafe");
+setTimeout(revealInView, 1500);
 
 /* Parallax paint: writes CSS variables only */
 const media = Array.from(document.querySelectorAll<HTMLElement>("[data-parallax]"));
@@ -86,6 +110,7 @@ const cap = () => (window.innerWidth >= 1040 ? 34 : window.innerWidth >= 760 ? 2
 function paint() {
   ticking = false;
   header?.classList.toggle("is-scrolled", scrollY > 8);
+  revealInView();
   if (reduce) return;
   const max = document.documentElement.scrollHeight - innerHeight;
   progress?.style.setProperty("--scroll-p", String(max > 0 ? Math.min(1, scrollY / max) : 0));

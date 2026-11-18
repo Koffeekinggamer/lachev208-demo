@@ -3,7 +3,8 @@
 import { readdir, readFile, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 
-const dist = new URL("../dist", import.meta.url).pathname;
+// Optional first argument: output dir (default ./dist).
+const dist = process.argv[2] ? new URL(process.argv[2].replace(/\/?$/, ""), `file://${process.cwd()}/`).pathname : new URL("../dist", import.meta.url).pathname;
 const files = [];
 async function walk(dir) {
   for (const ent of await readdir(dir, { withFileTypes: true })) {

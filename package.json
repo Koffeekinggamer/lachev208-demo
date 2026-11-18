@@ -8,7 +8,9 @@
     "dev": "astro dev",
     "build": "astro build && node scripts/patch-aliases.mjs",
     "preview": "astro preview --host 127.0.0.1 --port 4321",
-    "deploy:pages": "bash scripts/deploy-pages.sh"
+    "deploy:pages": "bash scripts/deploy-pages.sh",
+    "build:review": "astro build --outDir dist-mobile-polish && node scripts/patch-aliases.mjs dist-mobile-polish",
+    "serve:review": "node scripts/serve-review.mjs dist-mobile-polish 4330"
   },
   "dependencies": {
     "@fontsource/cormorant-garamond": "^5.3.0",

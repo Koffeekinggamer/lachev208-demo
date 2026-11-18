@@ -53,6 +53,10 @@ const jsonLd = {
           <a class="btn btn--solid" href={site.links.resy} {...ext}>Reserve a table<span class="sr-only"> on Resy (opens in a new tab)</span></a>
           <a class="btn btn--ghost" href={url(pages.food)}>See the menu</a>
         </div>
+        <p class="hero__meta">
+          <span class="status" data-open-status><i class="status__dot" aria-hidden="true"></i><span class="status__text">Open daily · Summerville, SC</span></span>
+          <a href={site.phoneHref}>{site.phone}</a>
+        </p>
       </div>
     </div>
   </section>
