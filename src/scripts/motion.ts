@@ -19,20 +19,41 @@ let reduce = reduceQ.matches;
 const toggle = document.querySelector<HTMLButtonElement>(".menu-toggle");
 const nav = document.querySelector<HTMLElement>("#site-nav");
 const desktopQ = window.matchMedia("(min-width: 1024px)");
+const siteHeader = document.querySelector<HTMLElement>(".site-header");
+/* Below 1024px the nav is a full-height sheet, so expose it as a modal dialog; on desktop it is plain navigation. */
+const syncNavRole = () => {
+  if (!nav) return;
+  if (desktopQ.matches) { nav.removeAttribute("role"); nav.removeAttribute("aria-modal"); nav.setAttribute("aria-label", "Main"); }
+  else { nav.setAttribute("role", "dialog"); nav.setAttribute("aria-modal", "true"); nav.setAttribute("aria-label", "Menu"); }
+};
+syncNavRole();
+const menuOpen = () => toggle?.getAttribute("aria-expanded") === "true";
 const setMenu = (open: boolean) => {
   if (!toggle || !nav) return;
   nav.classList.toggle("is-open", open);
   toggle.setAttribute("aria-expanded", String(open));
   root.classList.toggle("menu-open", open);
-  // While the sheet is open, the page behind it is inert (no tab stops, no taps).
-  document.querySelectorAll<HTMLElement>("main, .site-footer, .actionbar").forEach((el) => { if (open) el.setAttribute("inert", ""); else el.removeAttribute("inert"); });
+  // While the sheet is open, the page behind it is inert (no tab stops, no taps). Header + nav stay live.
+  document.querySelectorAll<HTMLElement>("main, .site-footer, .actionbar, .skip").forEach((el) => { if (open) el.setAttribute("inert", ""); else el.removeAttribute("inert"); });
+  if (open) nav.querySelector<HTMLElement>("a")?.focus({ preventScroll: true });
 };
-desktopQ.addEventListener("change", (e) => { if (e.matches) setMenu(false); });
-toggle?.addEventListener("click", () => setMenu(toggle.getAttribute("aria-expanded") !== "true"));
+desktopQ.addEventListener("change", (e) => { syncNavRole(); if (e.matches) setMenu(false); });
+toggle?.addEventListener("click", () => setMenu(!menuOpen()));
 nav?.querySelectorAll("a").forEach((a) => a.addEventListener("click", () => !desktopQ.matches && setMenu(false)));
-document.addEventListener("keydown", (e) => { if (e.key === "Escape" && toggle?.getAttribute("aria-expanded") === "true") { setMenu(false); toggle.focus(); } });
+document.addEventListener("keydown", (e) => {
+  if (!menuOpen() || desktopQ.matches) return;
+  if (e.key === "Escape") { setMenu(false); toggle?.focus(); return; }
+  if (e.key !== "Tab" || !siteHeader) return;
+  // Trap Tab inside header + nav: logo, (Reserve at tablet width), toggle, nav links.
+  const stops = Array.from(siteHeader.querySelectorAll<HTMLElement>("a[href], button")).filter((el) => el.getClientRects().length > 0 && getComputedStyle(el).visibility !== "hidden");
+  if (!stops.length) return;
+  const first = stops[0], last = stops[stops.length - 1], active = document.activeElement as HTMLElement | null;
+  if (!active || !siteHeader.contains(active)) { e.preventDefault(); first.focus(); }
+  else if (e.shiftKey && active === first) { e.preventDefault(); last.focus(); }
+  else if (!e.shiftKey && active === last) { e.preventDefault(); first.focus(); }
+});
 document.addEventListener("click", (e) => {
-  if (!toggle || !nav || toggle.getAttribute("aria-expanded") !== "true") return;
+  if (!toggle || !nav || !menuOpen()) return;
   const t = e.target as Node;
   if (!nav.contains(t) && !toggle.contains(t)) setMenu(false);
 });
@@ -68,8 +89,11 @@ function paintStatus() {
   else { const next = (day + 1) % 7; text = `Closed · opens tomorrow at ${clock(HOURS[next][0])}`; }
   els.forEach((el) => { el.classList.toggle("is-open", isOpen); const t = el.querySelector(".status__text"); if (t) t.textContent = text; });
 }
-paintStatus();
-setInterval(paintStatus, 60000);
+const whenIdle = (fn: () => void) => {
+  const run = () => ("requestIdleCallback" in window ? (window as any).requestIdleCallback(fn, { timeout: 800 }) : setTimeout(fn, 200));
+  if (document.readyState === "complete") run(); else addEventListener("load", run, { once: true });
+};
+whenIdle(() => { paintStatus(); setInterval(paintStatus, 60000); });
 
 /* Header state */
 const header = document.querySelector(".site-header");
@@ -127,9 +151,12 @@ function paint() {
   }
 }
 const request = () => { if (!ticking) { ticking = true; requestAnimationFrame(paint); } };
-addEventListener("scroll", request, { passive: true });
-addEventListener("resize", request);
-paint();
+// Parallax / progress / header state start after load so they never compete with the first paint.
+whenIdle(() => {
+  addEventListener("scroll", request, { passive: true });
+  addEventListener("resize", request);
+  paint();
+});
 
 /* Hero stills: Ken Burns is CSS; additional slides load after `load` and crossfade */
 function startHeroSlides() {
@@ -139,15 +166,24 @@ function startHeroSlides() {
   if (tpl?.content) rootSlides.append(tpl.content.cloneNode(true));
   const slides = () => Array.from(rootSlides.querySelectorAll(".hero__slide"));
   if (slides().length < 2) return;
+  // Only the visible slide is announced to screen readers; the rest are hidden until their turn.
+  slides().forEach((el) => { if (!el.classList.contains("is-current")) el.setAttribute("aria-hidden", "true"); });
   let i = 0;
+  // ~6.5 s per slide, slow 1.6 s crossfade (CSS). Skips turns while the tab is hidden or reduced motion is on.
   setInterval(() => {
-    if (reduce) return;
+    if (reduce || document.hidden) return;
     const s = slides();
     if (s.length < 2) return;
-    s[i].classList.remove("is-current");
+    // Outgoing slide stays fully opaque underneath while the next one fades in on top (no dip to the background).
+    const out = s[i];
+    out.classList.remove("is-current");
+    out.classList.add("is-leaving");
+    out.setAttribute("aria-hidden", "true");
+    setTimeout(() => out.classList.remove("is-leaving"), 1800);
     i = (i + 1) % s.length;
     s[i].classList.add("is-current");
-  }, 7000);
+    s[i].removeAttribute("aria-hidden");
+  }, 6500);
 }
 addEventListener("load", () => startHeroSlides(), { once: true });
 

@@ -28,7 +28,7 @@ const canonicalPath = Astro.url.pathname;
     <meta property="og:site_name" content="La Chev 208" />
     <meta property="og:url" content={new URL(canonicalPath, Astro.site).href} />
     <link rel="preload" href={cormorant} as="font" type="font/woff2" crossorigin />
-    <link rel="preload" href={jost} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={jost} as="font" type="font/woff2" crossorigin fetchpriority="low" />
     <script is:inline>
       document.documentElement.classList.remove("no-js");
       if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) document.documentElement.classList.add("motion");

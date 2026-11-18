@@ -22,7 +22,9 @@ async function encodeWebp(input, width, quality) {
 }
 
 const report = [];
+const only = process.argv.slice(2);
 for (const [name, src] of Object.entries(masters)) {
+  if (only.length && !only.includes(name)) continue;
   const meta = await sharp(src).metadata();
   for (const w of targetWidths[name]) {
     if (w > meta.width) continue;
@@ -57,6 +59,7 @@ for (const [name, src] of Object.entries(masters)) {
     const webpPath = path.join(dir, `${name}-${w}.webp`);
     writeFileSync(avifPath, avifBuf);
     writeFileSync(webpPath, webpBuf);
+    if (w === 1640) writeFileSync(path.join(dir, `${name}-1640.jpg`), await sharp(src).resize({ width: 1640, withoutEnlargement: true }).jpeg({ quality: 82, mozjpeg: true }).toBuffer());
     const row = { name, w, avifQ, avifKB: +(avifBuf.length/1024).toFixed(1), webpQ, webpKB: +(webpBuf.length/1024).toFixed(1) };
     report.push(row);
     console.log(row);
