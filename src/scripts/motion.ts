@@ -1,5 +1,16 @@
 // millerbilt-style motion: scroll reveal, gentle parallax, progress line.
 // No libraries. Everything is skipped or flattened under prefers-reduced-motion.
+
+if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+{
+  const id = location.hash ? location.hash.slice(1) : "";
+  let hasTarget = false;
+  if (id) {
+    try { hasTarget = Boolean(document.getElementById(decodeURIComponent(id))); } catch { hasTarget = false; }
+  }
+  if (!hasTarget) scrollTo(0, 0);
+}
+
 const root = document.documentElement;
 const reduceQ = window.matchMedia("(prefers-reduced-motion: reduce)");
 let reduce = reduceQ.matches;
