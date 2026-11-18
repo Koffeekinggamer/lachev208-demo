@@ -1,0 +1,40 @@
+---
+import { getCollection } from "astro:content";
+import Base from "../layouts/Base.astro";
+import PageHero from "../components/PageHero.astro";
+import MenuBoard from "../components/MenuBoard.astro";
+import Photo from "../components/Photo.astro";
+import { slug, site } from "../lib";
+import hero from "../assets/photos/flounder-close.jpg";
+import risotto from "../assets/photos/wild-mushroom-risotto.jpg";
+import salmon from "../assets/photos/salmon.jpg";
+import toast from "../assets/photos/banana-french-toast.jpg";
+const menus = (await getCollection("menus", (m) => m.data.page === "food")).sort((a, b) => a.data.order - b.data.order);
+const ext = { target: "_blank", rel: "noopener" };
+---
+<Base title="Food menu · La Chev 208, Summerville SC" description="Lunch, dinner and Sunday brunch at La Chev 208: salads, small plates, handhelds and French-leaning entrées in Summerville, SC." current="food">
+  <PageHero image={hero} alt="Crab-stuffed flounder on fine china, topped with greens" eyebrow="Food menu" title="Lunch, dinner & brunch" position="50% 40%">
+    <p>Seasonal French cooking with Southern roots. Brunch is Sundays, 10 am – 4 pm.</p>
+  </PageHero>
+  <nav class="menu-nav" aria-label="Food menus">
+    <div class="wrap"><ul>{menus.map((m) => <li><a href={`#${slug(m.data.title)}`}>{m.data.title}</a></li>)}</ul></div>
+  </nav>
+  <MenuBoard menus={menus} />
+  <section class="section section--surface" aria-labelledby="plates-h">
+    <div class="wrap">
+      <div class="section-head" data-reveal-group>
+        <span class="eyebrow">On the pass</span>
+        <h2 id="plates-h">A few favorites</h2>
+      </div>
+      <div class="gallery" data-stagger="80">
+        <figure class="frame" data-reveal style="margin:0"><Photo src={risotto} alt="Wild mushroom risotto" sizes="(min-width: 900px) 31vw, 48vw" widths={[320, 480, 640, 800]} /></figure>
+        <figure class="frame" data-reveal style="margin:0"><Photo src={salmon} alt="Salmon with arugula" sizes="(min-width: 900px) 31vw, 48vw" widths={[320, 480, 640, 800]} /></figure>
+        <figure class="frame gallery__third" data-reveal style="margin:0"><Photo src={toast} alt="Brunch plate topped with caramelized bananas" sizes="(min-width: 900px) 31vw, 48vw" widths={[320, 480, 640, 800]} /></figure>
+      </div>
+      <div class="btn-row" style="margin-top:var(--s4)">
+        <a class="btn btn--solid" href={site.links.resy} {...ext}>Reserve a table<span class="sr-only"> on Resy (opens in a new tab)</span></a>
+        <a class="btn btn--ghost" href={site.links.toastOrder} {...ext}>Order takeout<span class="sr-only"> on Toast (opens in a new tab)</span></a>
+      </div>
+    </div>
+  </section>
+</Base>

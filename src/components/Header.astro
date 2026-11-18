@@ -1,0 +1,29 @@
+---
+import { url, pages, site } from "../lib";
+const { current = "" } = Astro.props;
+const items = [
+  { key: "food", label: "Food", href: pages.food },
+  { key: "drink", label: "Drinks", href: pages.drink },
+  { key: "events", label: "Events", href: pages.events },
+  { key: "party", label: "Parties & catering", href: pages.party },
+];
+---
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href={url("/")} aria-label="La Chev 208, home">
+      <img src={url("/logo-gold.png")} alt="La Chev 208" width="332" height="127" />
+    </a>
+    <div class="header-actions">
+      <a class="btn btn--solid header-reserve" href={site.links.resy} target="_blank" rel="noopener">Reserve<span class="sr-only"> on Resy (opens in a new tab)</span></a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
+        <span class="bars" aria-hidden="true"></span><span>Menu</span>
+      </button>
+      <nav class="nav" id="site-nav" aria-label="Main">
+        {items.map((i) => (
+          <a href={url(i.href)} aria-current={current === i.key ? "page" : undefined}>{i.label}</a>
+        ))}
+        <a class="btn btn--solid" href={site.links.resy} target="_blank" rel="noopener">Reserve<span class="sr-only"> on Resy (opens in a new tab)</span></a>
+      </nav>
+    </div>
+  </div>
+</header>

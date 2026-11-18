@@ -1,0 +1,23 @@
+# Cloudflare Pages _redirects for the real launch at https://lachev208.com (no base path).
+# Copy into public/ at launch. GitHub Pages ignores this file; the preview uses Astro meta-refresh pages instead.
+/summerville-la-chev-208-catering /summerville-la-chev-208-party#catering 301
+/summerville-la-chev-208-happy-hours-specials /summerville-la-chev-208-events#specials 301
+/-food-menu /summerville-la-chev-208-food-menu 301
+/food-menu /summerville-la-chev-208-food-menu 301
+/menu /summerville-la-chev-208-food-menu 301
+/-drink-menu /summerville-la-chev-208-drink-menu 301
+/drink-menu /summerville-la-chev-208-drink-menu 301
+/-events /summerville-la-chev-208-events 301
+/events /summerville-la-chev-208-events 301
+/-specials /summerville-la-chev-208-events#specials 301
+/specials /summerville-la-chev-208-events#specials 301
+/-party /summerville-la-chev-208-party 301
+/party /summerville-la-chev-208-party 301
+/-catering /summerville-la-chev-208-party#catering 301
+/catering /summerville-la-chev-208-party#catering 301
+/accessibility /accessibility-page-01 301
+/about /#about 301
+/reservations /#reserve 301
+/summerville-la-chev-208-reservations /#reserve 301
+/gift-cards https://www.toasttab.com/la-chev-208-208-e-1st-n-st/giftcards 302
+/jobs https://tmt.spotapps.co/job-listings?spot_id=406693 302

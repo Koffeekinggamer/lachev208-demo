@@ -1,0 +1,31 @@
+source,destination,status,action,notes
+http://lachev208.com/*,https://lachev208.com/:splat,301,FIX,HTTP currently returns 500 from Pingora instead of a 301
+http://www.lachev208.com/*,https://lachev208.com/:splat,301,FIX,HTTP currently returns 500 from Pingora
+https://www.lachev208.com/*,https://lachev208.com/:splat,301,KEEP,Already works
+https://lachev208.com/,https://lachev208.com/,200,KEEP,Home
+https://lachev208.com/summerville-la-chev-208-food-menu,https://lachev208.com/summerville-la-chev-208-food-menu,200,KEEP,Canonical food menu (already indexed)
+https://lachev208.com/summerville-la-chev-208-drink-menu,https://lachev208.com/summerville-la-chev-208-drink-menu,200,KEEP,Canonical drink menu
+https://lachev208.com/summerville-la-chev-208-events,https://lachev208.com/summerville-la-chev-208-events,200,KEEP,Events; can also host specials content
+https://lachev208.com/summerville-la-chev-208-party,https://lachev208.com/summerville-la-chev-208-party,200,KEEP,Private parties + optional catering section
+https://lachev208.com/summerville-la-chev-208-catering,https://lachev208.com/summerville-la-chev-208-catering,200,KEEP,Keep path even if content shares a private-events template
+https://lachev208.com/summerville-la-chev-208-happy-hours-specials,https://lachev208.com/summerville-la-chev-208-events#specials,301,REVIEW,Specials page is a placeholder; merge into events unless staff resume daily specials
+https://lachev208.com/accessibility-page-01,https://lachev208.com/accessibility-page-01,200,KEEP,Keep awkward slug to preserve the only indexed accessibility URL; optional /accessibility 301 here
+https://lachev208.com/-party,https://lachev208.com/summerville-la-chev-208-party,301,301,Short alias used by popups
+https://lachev208.com/-catering,https://lachev208.com/summerville-la-chev-208-catering,301,301,Short alias used by popups
+https://lachev208.com/-events,https://lachev208.com/summerville-la-chev-208-events,301,301,
+https://lachev208.com/-food-menu,https://lachev208.com/summerville-la-chev-208-food-menu,301,301,
+https://lachev208.com/-drink-menu,https://lachev208.com/summerville-la-chev-208-drink-menu,301,301,
+https://lachev208.com/-specials,https://lachev208.com/summerville-la-chev-208-happy-hours-specials,301,301,Follow the specials decision above
+https://lachev208.com/drink-menu,https://lachev208.com/summerville-la-chev-208-drink-menu,301,301,
+https://lachev208.com/events,https://lachev208.com/summerville-la-chev-208-events,301,301,
+https://lachev208.com/catering,https://lachev208.com/summerville-la-chev-208-catering,301,301,
+https://lachev208.com/specials,https://lachev208.com/summerville-la-chev-208-happy-hours-specials,301,301,
+https://lachev208.com/menu,https://lachev208.com/summerville-la-chev-208-food-menu,301,ADD,"Currently 404; useful pretty URL, keep long URL as canonical"
+https://lachev208.com/food-menu,https://lachev208.com/summerville-la-chev-208-food-menu,301,ADD,Currently 404
+https://lachev208.com/party,https://lachev208.com/summerville-la-chev-208-party,301,ADD,Currently 404
+https://lachev208.com/accessibility,https://lachev208.com/accessibility-page-01,301,ADD,Currently 404
+https://lachev208.com/about,https://lachev208.com/#about,301,301,Do not migrate the lorem ipsum block
+https://lachev208.com/reservations,https://lachev208.com/#reserve,301,301,"Reservations should open Resy from the home CTA, not a thin iframe page"
+https://lachev208.com/summerville-la-chev-208-reservations,https://lachev208.com/#reserve,301,301,
+https://lachev208.com/jobs,https://tmt.spotapps.co/job-listings?spot_id=406693,302 or copy,REVIEW,Only if they keep SpotHopper jobs; otherwise a new /jobs form. Currently 404 on-site
+https://lachev208.com/gift-cards,https://www.toasttab.com/la-chev-208-208-e-1st-n-st/giftcards,302 or copy,REVIEW,Currently 404 on-site; nav already goes straight to Toast

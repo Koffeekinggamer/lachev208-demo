@@ -1,0 +1,294 @@
+{
+  "page": "food",
+  "title": "Dinner",
+  "order": 2,
+  "note": "*Consuming raw or undercooked meats, poultry, seafood, shellfish, or eggs may increase your risk of foodborne illness.",
+  "sections": [
+    {
+      "title": "Soups & Salads",
+      "note": "",
+      "items": [
+        {
+          "name": "Caesar",
+          "description": "Romaine, citrus crouton, confit tomato, parmesan.",
+          "prices": [
+            {
+              "amount": "12",
+              "unit": ""
+            }
+          ]
+        },
+        {
+          "name": "Chevalier",
+          "description": "Mesculin, strawberry, goat cheese, pecan.",
+          "prices": [
+            {
+              "amount": "12",
+              "unit": ""
+            }
+          ]
+        },
+        {
+          "name": "Golden Beet",
+          "description": "Smoked almonds, gorgonzola, citrus vinaigrette.",
+          "prices": [
+            {
+              "amount": "14",
+              "unit": ""
+            }
+          ]
+        },
+        {
+          "name": "Fig & Prosciutto",
+          "description": "Pickled red onion, goat cheese, arugula.",
+          "prices": [
+            {
+              "amount": "18",
+              "unit": ""
+            }
+          ]
+        },
+        {
+          "name": "Oyster Salad",
+          "description": "Pickled shallot crema, candy pecans, gorgonzola, spinach",
+          "prices": [
+            {
+              "amount": "18",
+              "unit": ""
+            }
+          ]
+        },
+        {
+          "name": "Lobster Bisque",
+          "description": "Sweet corn relish.",
+          "prices": [
+            {
+              "amount": "7",
+              "unit": "Cup"
+            },
+            {
+              "amount": "8",
+              "unit": "Bowl"
+            }
+          ]
+        },
+        {
+          "name": "Smoked Corn Chowder",
+          "description": "Blue Crab",
+          "prices": [
+            {
+              "amount": "7",
+              "unit": "Cup"
+            },
+            {
+              "amount": "8",
+              "unit": "Bowl"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Small Plates",
+      "note": "",
+      "items": [
+        {
+          "name": "Shrimp Cocktail",
+          "description": "Grilled & Chilled, Bloody Mary cocktail",
+          "prices": [
+            {
+              "amount": "18",
+              "unit": ""
+            }
+          ]
+        },
+        {
+          "name": "Sticky Ribs",
+          "description": "Honey-Sriracha Glaze",
+          "prices": [
+            {
+              "amount": "20",
+              "unit": ""
+            }
+          ]
+        },
+        {
+          "name": "Pomme Frites",
+          "description": "Duck fat, rosemary, shaved gruyere, rouille.",
+          "prices": [
+            {
+              "amount": "14",
+              "unit": ""
+            }
+          ]
+        },
+        {
+          "name": "Provencal PEI Mussels",
+          "description": "Saffron, sweet onion, pepper flake.",
+          "prices": [
+            {
+              "amount": "18",
+              "unit": ""
+            }
+          ]
+        },
+        {
+          "name": "Duck Dumplings",
+          "description": "Cabernet sweet and sour.",
+          "prices": [
+            {
+              "amount": "18",
+              "unit": ""
+            }
+          ]
+        },
+        {
+          "name": "House-Made Meatballs",
+          "description": "Lamb and beef, French onion jus.",
+          "prices": [
+            {
+              "amount": "15",
+              "unit": ""
+            }
+          ]
+        },
+        {
+          "name": "Deviled Eggs",
+          "description": "Jalapeno, Bacon, chive crema, crispy potato.",
+          "prices": [
+            {
+              "amount": "15",
+              "unit": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Entrees",
+      "note": "",
+      "items": [
+        {
+          "name": "Shrimp & Grits",
+          "description": "Confit tomato, applewood bacon, basil.",
+          "prices": [
+            {
+              "amount": "28",
+              "unit": ""
+            }
+          ]
+        },
+        {
+          "name": "Blue Crab Lorraine",
+          "description": "Roasted garlic Alfredo, spinach, tagliatelle",
+          "prices": [
+            {
+              "amount": "32",
+              "unit": ""
+            }
+          ]
+        },
+        {
+          "name": "*Salmon",
+          "description": "Creamed Corn, arugula, confit tomato, Port wine gastrique",
+          "prices": [
+            {
+              "amount": "30",
+              "unit": ""
+            }
+          ]
+        },
+        {
+          "name": "Bouillabaisse",
+          "description": "Mussels, scallops, shrimp, salmon, saffron.",
+          "prices": [
+            {
+              "amount": "30",
+              "unit": ""
+            }
+          ]
+        },
+        {
+          "name": "Crab Stuffed Flounder",
+          "description": "Red pepper puree, green beans, crispy potato",
+          "prices": [
+            {
+              "amount": "34",
+              "unit": ""
+            }
+          ]
+        },
+        {
+          "name": "208 Fried Chicken",
+          "description": "Andouille red Rice, collard greens, hot honey",
+          "prices": [
+            {
+              "amount": "28",
+              "unit": ""
+            }
+          ]
+        },
+        {
+          "name": "Lowcountry Duck Cassoulet",
+          "description": "Corn, okra, lima beans, truffle bacon",
+          "prices": [
+            {
+              "amount": "35",
+              "unit": ""
+            }
+          ]
+        },
+        {
+          "name": "Steak Cheval",
+          "description": "Ground lamb, Whipped potatoes, Green beans, onion gravy",
+          "prices": [
+            {
+              "amount": "30",
+              "unit": ""
+            }
+          ]
+        },
+        {
+          "name": "*Filet Mignon",
+          "description": "Roasted cauliflower puree, Brussels, bacon, demi glaze",
+          "prices": [
+            {
+              "amount": "46",
+              "unit": ""
+            }
+          ]
+        },
+        {
+          "name": "Short Rib Ragout",
+          "description": "Spinach, goat cheese, pine nuts, demi, tagliatelle",
+          "prices": [
+            {
+              "amount": "36",
+              "unit": ""
+            }
+          ]
+        },
+        {
+          "name": "Prosciutto Port Tenderloin",
+          "description": "Sweet potato, sweet corn, arugula, hot honey",
+          "prices": [
+            {
+              "amount": "32",
+              "unit": ""
+            }
+          ]
+        },
+        {
+          "name": "Wild Mushroom Risotto",
+          "description": "Fresh basil, truffle oil.",
+          "prices": [
+            {
+              "amount": "25",
+              "unit": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

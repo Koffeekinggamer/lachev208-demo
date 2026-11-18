@@ -1,0 +1,29 @@
+---
+import Base from "../layouts/Base.astro";
+import PageHero from "../components/PageHero.astro";
+import { site } from "../lib";
+import hero from "../assets/photos/patio-table.jpg";
+---
+<Base title="Accessibility · La Chev 208" description="La Chev 208’s commitment to an accessible website and restaurant, and how to reach us for help." current="accessibility">
+  <PageHero image={hero} alt="A table on the La Chev 208 backyard patio" eyebrow="Accessibility" title="Welcome, everyone" position="50% 50%">
+    <p>We want the site — and the restaurant — to work for every guest.</p>
+  </PageHero>
+  <section class="section">
+    <div class="wrap--narrow prose" data-reveal-group>
+      <h2>Our commitment</h2>
+      <p>La Chev 208 is committed to making this website usable by people with disabilities. We keep gathering feedback and improving the experience for everyone.</p>
+      <h2>Standard</h2>
+      <p>We aim to meet the Web Content Accessibility Guidelines (WCAG) 2.2 at level AA. In practice that means:</p>
+      <ul>
+        <li>Text and buttons meet AA color contrast.</li>
+        <li>Every page works with a keyboard and a screen reader, with a “skip to content” link.</li>
+        <li>Animation is subtle and turns off when your device asks for reduced motion; the homepage video can be paused.</li>
+        <li>Menus are real text, not images, so they can be zoomed, translated and read aloud.</li>
+      </ul>
+      <h2>Third-party services</h2>
+      <p>Reservations (Resy), takeout and gift cards (Toast) and our inquiry forms are run by outside providers. We encourage them to keep their content accessible, though we can’t control it.</p>
+      <h2>Feedback &amp; help</h2>
+      <p>Tell us how we’re doing, or ask for help with anything on the site: email <a href={`mailto:${site.email}`}>{site.email}</a> or call <a href={site.phoneHref}>{site.phone}</a> during business hours. We try to respond within two business days.</p>
+    </div>
+  </section>
+</Base>

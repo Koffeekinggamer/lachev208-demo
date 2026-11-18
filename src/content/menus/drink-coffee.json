@@ -1,0 +1,110 @@
+{
+  "page": "drink",
+  "title": "Coffee & tea",
+  "order": 8,
+  "note": "",
+  "sections": [
+    {
+      "title": "Charleston Tea Plantation",
+      "note": "",
+      "items": [
+        {
+          "name": "Charleston Tea Plantation",
+          "description": "A selection of local tea bags.",
+          "prices": [
+            {
+              "amount": "7",
+              "unit": ""
+            }
+          ]
+        },
+        {
+          "name": "Thunderbolt Darjeeling",
+          "description": "Black tea, delicately vegetal, nuanced hint of muscatel.",
+          "prices": [
+            {
+              "amount": "7",
+              "unit": ""
+            }
+          ]
+        },
+        {
+          "name": "Health & Well Being (Organic)",
+          "description": "Green tea, subtle hint of green, vegetal toasty complexity.",
+          "prices": [
+            {
+              "amount": "7",
+              "unit": ""
+            }
+          ]
+        },
+        {
+          "name": "Citrus Earl Grey",
+          "description": "Black tea, hint of citrus, expansive citrus infusion.",
+          "prices": [
+            {
+              "amount": "7",
+              "unit": ""
+            }
+          ]
+        },
+        {
+          "name": "Decaf Earl Grey",
+          "description": "Black tea, delicate citrus, light bodied & smooth.",
+          "prices": [
+            {
+              "amount": "6",
+              "unit": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Coffees by Coastal Coffee",
+      "note": "",
+      "items": [
+        {
+          "name": "Espresso",
+          "description": "",
+          "prices": [
+            {
+              "amount": "4",
+              "unit": ""
+            }
+          ]
+        },
+        {
+          "name": "Cappuccino or Latte",
+          "description": "",
+          "prices": [
+            {
+              "amount": "6",
+              "unit": ""
+            }
+          ]
+        },
+        {
+          "name": "Add Syrup",
+          "description": "Vanilla · Toffee · Lavender · Pistachio",
+          "prices": [
+            {
+              "amount": "2",
+              "unit": ""
+            }
+          ]
+        },
+        {
+          "name": "Add Smoked",
+          "description": "",
+          "prices": [
+            {
+              "amount": "1",
+              "unit": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

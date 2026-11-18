@@ -1,0 +1,129 @@
+// millerbilt-style motion: scroll reveal, gentle parallax, progress line.
+// No libraries. Everything is skipped or flattened under prefers-reduced-motion.
+const root = document.documentElement;
+const reduceQ = window.matchMedia("(prefers-reduced-motion: reduce)");
+let reduce = reduceQ.matches;
+
+/* Mobile nav */
+const toggle = document.querySelector<HTMLButtonElement>(".menu-toggle");
+const nav = document.querySelector<HTMLElement>("#site-nav");
+const desktopQ = window.matchMedia("(min-width: 1024px)");
+const setMenu = (open: boolean) => {
+  if (!toggle || !nav) return;
+  nav.classList.toggle("is-open", open);
+  toggle.setAttribute("aria-expanded", String(open));
+};
+toggle?.addEventListener("click", () => setMenu(toggle.getAttribute("aria-expanded") !== "true"));
+nav?.querySelectorAll("a").forEach((a) => a.addEventListener("click", () => !desktopQ.matches && setMenu(false)));
+document.addEventListener("keydown", (e) => { if (e.key === "Escape" && toggle?.getAttribute("aria-expanded") === "true") { setMenu(false); toggle.focus(); } });
+document.addEventListener("click", (e) => {
+  if (!toggle || !nav || toggle.getAttribute("aria-expanded") !== "true") return;
+  const t = e.target as Node;
+  if (!nav.contains(t) && !toggle.contains(t)) setMenu(false);
+});
+
+/* In-page anchors: JS smooth scroll (not CSS), auto under reduced motion */
+document.addEventListener("click", (e) => {
+  const a = (e.target as Element).closest?.("a");
+  if (!a || e.defaultPrevented || e.metaKey || e.ctrlKey || e.shiftKey) return;
+  const href = a.getAttribute("href") || "";
+  if (!href.startsWith("#") || href.length < 2) return;
+  const el = document.getElementById(decodeURIComponent(href.slice(1)));
+  if (!el) return;
+  e.preventDefault();
+  el.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
+  history.pushState(null, "", href);
+});
+
+/* Header state */
+const header = document.querySelector(".site-header");
+
+/* Reveal */
+const revealables = Array.from(document.querySelectorAll<HTMLElement>("[data-reveal], [data-reveal-group]"));
+document.querySelectorAll<HTMLElement>("[data-stagger]").forEach((list) => {
+  const step = Number(list.dataset.stagger) || 90;
+  Array.from(list.children).forEach((c, i) => (c as HTMLElement).style.setProperty("--d", `${Math.min(i, 6) * step}ms`));
+});
+const io = "IntersectionObserver" in window
+  ? new IntersectionObserver((entries) => {
+      for (const en of entries) if (en.isIntersecting) { en.target.classList.add("is-in"); io!.unobserve(en.target); }
+    }, { rootMargin: "0px 0px -6% 0px", threshold: 0.12 })
+  : null;
+revealables.forEach((el) => (io ? io.observe(el) : el.classList.add("is-in")));
+requestAnimationFrame(() => requestAnimationFrame(() => {
+  const h = window.innerHeight * 0.94;
+  revealables.forEach((el) => { if (el.getBoundingClientRect().top < h) el.classList.add("is-in"); });
+}));
+
+/* Parallax paint: writes CSS variables only */
+const media = Array.from(document.querySelectorAll<HTMLElement>("[data-parallax]"));
+const heroCopy = document.querySelector<HTMLElement>(".hero__copy");
+const progress = document.querySelector<HTMLElement>(".progress");
+let ticking = false;
+const speed = () => (window.innerWidth >= 1040 ? 0.11 : window.innerWidth >= 760 ? 0.07 : 0.045);
+const cap = () => (window.innerWidth >= 1040 ? 34 : window.innerWidth >= 760 ? 20 : 12);
+function paint() {
+  ticking = false;
+  header?.classList.toggle("is-scrolled", scrollY > 8);
+  if (reduce) return;
+  const max = document.documentElement.scrollHeight - innerHeight;
+  progress?.style.setProperty("--scroll-p", String(max > 0 ? Math.min(1, scrollY / max) : 0));
+  const vh = innerHeight, s = speed(), c = cap();
+  for (const el of media) {
+    const r = el.getBoundingClientRect();
+    if (r.bottom < -100 || r.top > vh + 100) continue;
+    const d = (r.top + r.height / 2 - vh / 2) * s;
+    el.style.setProperty("--py", `${Math.max(-c, Math.min(c, -d)).toFixed(1)}px`);
+  }
+  if (heroCopy) {
+    const amp = innerWidth >= 1040 ? 16 : 6;
+    heroCopy.style.setProperty("--copy-y", `${(Math.min(1, scrollY / vh) * amp).toFixed(1)}px`);
+  }
+}
+const request = () => { if (!ticking) { ticking = true; requestAnimationFrame(paint); } };
+addEventListener("scroll", request, { passive: true });
+addEventListener("resize", request);
+paint();
+
+/* Hero video: poster is the LCP image; the video only loads when motion is allowed */
+const video = document.querySelector<HTMLVideoElement>("[data-hero-video]");
+const vToggle = document.querySelector<HTMLButtonElement>(".video-toggle");
+function startVideo() {
+  if (!video || reduce) return;
+  const conn = (navigator as any).connection;
+  if (conn?.saveData) return;
+  if (!video.src) video.src = innerWidth < 760 ? video.dataset.srcSm! : video.dataset.srcLg!;
+  video.addEventListener("playing", () => video.classList.add("is-playing"), { once: true });
+  video.play().then(() => { if (vToggle) vToggle.hidden = false; }).catch(() => {});
+}
+vToggle?.addEventListener("click", () => {
+  if (!video) return;
+  if (video.paused) { video.play(); vToggle.setAttribute("aria-pressed", "false"); vToggle.querySelector("span")!.textContent = "Pause video"; }
+  else { video.pause(); vToggle.setAttribute("aria-pressed", "true"); vToggle.querySelector("span")!.textContent = "Play video"; }
+});
+if (video) addEventListener("load", () => setTimeout(startVideo, 300), { once: true });
+
+/* Active section in the sticky menu nav */
+const menuLinks = Array.from(document.querySelectorAll<HTMLAnchorElement>(".menu-nav a"));
+if (menuLinks.length && "IntersectionObserver" in window) {
+  const map = new Map(menuLinks.map((a) => [a.hash.slice(1), a]));
+  const spy = new IntersectionObserver((entries) => {
+    for (const en of entries) if (en.isIntersecting) {
+      menuLinks.forEach((l) => l.classList.remove("is-active"));
+      map.get(en.target.id)?.classList.add("is-active");
+    }
+  }, { rootMargin: "-30% 0px -60% 0px" });
+  map.forEach((_, id) => { const s = document.getElementById(id); if (s) spy.observe(s); });
+}
+
+/* Reduced-motion switch mid-session */
+reduceQ.addEventListener("change", (e) => {
+  reduce = e.matches;
+  root.classList.toggle("reduce-motion", reduce);
+  if (reduce) {
+    revealables.forEach((el) => el.classList.add("is-in"));
+    media.forEach((el) => el.style.removeProperty("--py"));
+    heroCopy?.style.removeProperty("--copy-y");
+    if (video) { video.pause(); video.classList.remove("is-playing"); if (vToggle) vToggle.hidden = true; }
+  } else { request(); startVideo(); }
+});

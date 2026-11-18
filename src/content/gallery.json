@@ -1,0 +1,58 @@
+{
+  "photos": [
+    {
+      "id": "crab-stuffed-flounder-plated",
+      "image": "../assets/photos/crab-stuffed-flounder-plated.jpg",
+      "alt": "Crab-stuffed flounder plated with arugula and cheese over a light sauce",
+      "order": 1
+    },
+    {
+      "id": "lamb-bolognese",
+      "image": "../assets/photos/lamb-bolognese.jpg",
+      "alt": "Lamb bolognese in a shallow white bowl",
+      "order": 2
+    },
+    {
+      "id": "espresso-martini",
+      "image": "../assets/photos/espresso-martini.jpg",
+      "alt": "Espresso martini with a crema top and three coffee beans",
+      "order": 3
+    },
+    {
+      "id": "patio-table",
+      "image": "../assets/photos/patio-table.jpg",
+      "alt": "Two plates on a backyard table under a red umbrella",
+      "order": 4
+    },
+    {
+      "id": "seared-steak",
+      "image": "../assets/photos/seared-steak.jpg",
+      "alt": "Seared steak with sauces on a dark plate",
+      "order": 5
+    },
+    {
+      "id": "banana-french-toast",
+      "image": "../assets/photos/banana-french-toast.jpg",
+      "alt": "Brunch plate topped with caramelized bananas",
+      "order": 6
+    },
+    {
+      "id": "salmon",
+      "image": "../assets/photos/salmon.jpg",
+      "alt": "Salmon fillet with a crisp cake and arugula",
+      "order": 7
+    },
+    {
+      "id": "wild-mushroom-risotto",
+      "image": "../assets/photos/wild-mushroom-risotto.jpg",
+      "alt": "Wild mushroom risotto with fresh herbs",
+      "order": 8
+    },
+    {
+      "id": "kitchen-team-grazing-board",
+      "image": "../assets/photos/kitchen-team-grazing-board.jpg",
+      "alt": "The kitchen team behind a long grazing board of charcuterie and cheese",
+      "order": 9
+    }
+  ]
+}

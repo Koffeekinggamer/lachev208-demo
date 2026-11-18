@@ -1,0 +1,31 @@
+source,destination,status,notes
+http://lachev208.com/*,https://lachev208.com/:splat,301,Host-level (Cloudflare rule); fixes today's HTTP 500
+http://www.lachev208.com/*,https://lachev208.com/:splat,301,Host-level
+https://www.lachev208.com/*,https://lachev208.com/:splat,301,Host-level; already works today
+/,/,200,Home (kept)
+/summerville-la-chev-208-food-menu,/summerville-la-chev-208-food-menu,200,Kept canonical
+/summerville-la-chev-208-drink-menu,/summerville-la-chev-208-drink-menu,200,Kept canonical
+/summerville-la-chev-208-events,/summerville-la-chev-208-events,200,Kept canonical; now hosts specials (#specials)
+/summerville-la-chev-208-party,/summerville-la-chev-208-party,200,Kept canonical; now hosts catering (#catering)
+/accessibility-page-01,/accessibility-page-01,200,Kept canonical
+/summerville-la-chev-208-catering,/summerville-la-chev-208-party#catering,301,Changed from Daedra's KEEP: catering merged into the party page per the six-page brief
+/summerville-la-chev-208-happy-hours-specials,/summerville-la-chev-208-events#specials,301,Placeholder page merged into events
+/-food-menu,/summerville-la-chev-208-food-menu,301,Alias
+/food-menu,/summerville-la-chev-208-food-menu,301,Alias (404 today)
+/menu,/summerville-la-chev-208-food-menu,301,Alias (404 today)
+/-drink-menu,/summerville-la-chev-208-drink-menu,301,Alias
+/drink-menu,/summerville-la-chev-208-drink-menu,301,Alias
+/-events,/summerville-la-chev-208-events,301,Alias
+/events,/summerville-la-chev-208-events,301,Alias
+/-specials,/summerville-la-chev-208-events#specials,301,Alias
+/specials,/summerville-la-chev-208-events#specials,301,Alias
+/-party,/summerville-la-chev-208-party,301,Alias
+/party,/summerville-la-chev-208-party,301,Alias (404 today)
+/-catering,/summerville-la-chev-208-party#catering,301,Alias
+/catering,/summerville-la-chev-208-party#catering,301,Alias
+/accessibility,/accessibility-page-01,301,Alias (404 today)
+/about,/#about,301,Drops the lorem-ipsum about page
+/reservations,/#reserve,301,Thin iframe page; Reserve goes to Resy
+/summerville-la-chev-208-reservations,/#reserve,301,Thin iframe page
+/gift-cards,https://www.toasttab.com/la-chev-208-208-e-1st-n-st/giftcards,302,Optional pretty URL (decision needed)
+/jobs,https://tmt.spotapps.co/job-listings?spot_id=406693,302,Only while SpotHopper jobs stay (decision needed)

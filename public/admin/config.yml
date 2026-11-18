@@ -1,0 +1,152 @@
+# Decap CMS for La Chev 208 — staff edit CONTENT only (menus, events, specials, hours/contact, photos).
+# Layout, typography, colors and motion live in code and are intentionally not editable here.
+#
+# NOT CONNECTED YET. To enable logins, pick one:
+#   A) GitHub backend (current setting): deploy a small OAuth proxy (e.g. a Cloudflare Worker
+#      running decap-proxy / netlify-cms-oauth-provider), create a GitHub OAuth App whose callback is that proxy,
+#      then fill in base_url below. Editors need write access to the repo.
+#   B) git-gateway: only works on Netlify with Netlify Identity enabled; swap `backend` to
+#      { name: git-gateway, branch: main }.
+# Local editing works today: run `npx decap-server` alongside `npm run dev` and open /lachev208-demo/admin/.
+backend:
+  name: github
+  repo: Koffeekinggamer/lachev208-demo
+  branch: main
+  # base_url: https://OAUTH-PROXY-PLACEHOLDER.example.workers.dev   # TODO: OAuth proxy URL
+  # auth_endpoint: auth
+local_backend: true
+publish_mode: simple
+site_url: https://koffeekinggamer.github.io/lachev208-demo/
+display_url: https://koffeekinggamer.github.io/lachev208-demo/
+logo_url: /lachev208-demo/logo-gold.png
+media_folder: src/assets/photos
+public_folder: /src/assets/photos
+
+collections:
+  - name: menus
+    label: Menus
+    label_singular: Menu
+    description: Food and drink menus. Edit names, descriptions and prices; reorder by dragging.
+    folder: src/content/menus
+    extension: json
+    format: json
+    create: false
+    delete: false
+    summary: "{{page}} · {{title}}"
+    sortable_fields: [order, title]
+    fields:
+      - { name: page, label: Page, widget: select, options: [food, drink] }
+      - { name: title, label: Menu name, widget: string }
+      - { name: order, label: Order on page, widget: number, value_type: int }
+      - { name: note, label: Footnote (e.g. consumer advisory), widget: text, required: false }
+      - name: sections
+        label: Sections
+        widget: list
+        summary: "{{fields.title}}"
+        fields:
+          - { name: title, label: Section title, widget: string }
+          - { name: note, label: Section note, widget: string, required: false }
+          - name: items
+            label: Items
+            widget: list
+            summary: "{{fields.name}}"
+            fields:
+              - { name: name, label: Name, widget: string }
+              - { name: description, label: Description, widget: text, required: false }
+              - name: prices
+                label: Prices
+                widget: list
+                summary: "${{fields.amount}} {{fields.unit}}"
+                fields:
+                  - { name: amount, label: Amount (no $ sign), widget: string }
+                  - { name: unit, label: "Unit (e.g. 6oz, 9oz, BTL, Cup) — leave blank for one price", widget: string, required: false }
+
+  - name: events
+    label: Events
+    folder: src/content/events
+    create: true
+    slug: "{{slug}}-{{year}}"
+    media_folder: ../../assets/photos
+    public_folder: ../../assets/photos
+    fields:
+      - { name: title, label: Title, widget: string }
+      - { name: date, label: Date, widget: datetime, time_format: false, date_format: "YYYY-MM-DD", format: "YYYY-MM-DD" }
+      - { name: start, label: Start time, widget: string, hint: "e.g. 12:00 PM" }
+      - { name: end, label: End time, widget: string }
+      - { name: summary, label: Short description, widget: text }
+      - { name: image, label: Photo, widget: image, required: false }
+      - { name: imageAlt, label: Photo description (for screen readers), widget: string, required: false }
+      - { name: published, label: Show on site, widget: boolean, default: true }
+
+  - name: specials
+    label: Specials
+    folder: src/content/specials
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { name: title, label: Title, widget: string }
+      - { name: when, label: When (e.g. Tuesdays 4–6 pm), widget: string }
+      - { name: price, label: Price, widget: string, required: false }
+      - { name: description, label: Description, widget: text, required: false }
+      - { name: active, label: Show on site, widget: boolean, default: true }
+      - { name: order, label: Order, widget: number, value_type: int, default: 1 }
+
+  - name: settings
+    label: Hours, contact & photos
+    files:
+      - name: site
+        label: Hours & contact
+        file: src/data/site.json
+        format: json
+        fields:
+          - { name: name, label: Restaurant name, widget: string }
+          - { name: tagline, label: Tagline, widget: string }
+          - name: address
+            label: Address
+            widget: object
+            fields:
+              - { name: street, label: Street, widget: string }
+              - { name: city, label: City, widget: string }
+              - { name: state, label: State, widget: string }
+              - { name: zip, label: ZIP, widget: string }
+          - { name: phone, label: Phone (display), widget: string }
+          - { name: phoneHref, label: Phone link (tel:+1...), widget: string }
+          - { name: email, label: Email, widget: string }
+          - name: hours
+            label: Hours
+            widget: list
+            summary: "{{fields.days}}: {{fields.time}}"
+            fields:
+              - { name: days, label: Days, widget: string }
+              - { name: time, label: Hours, widget: string }
+          - name: links
+            label: Outside links
+            widget: object
+            collapsed: true
+            fields:
+              - { name: resy, label: Resy reservations, widget: string }
+              - { name: toastOrder, label: Toast online ordering, widget: string }
+              - { name: toastGiftCards, label: Toast gift cards, widget: string }
+              - { name: directions, label: Google Maps directions, widget: string }
+              - { name: partyInquiry, label: Party inquiry form, widget: string }
+              - { name: cateringInquiry, label: Catering inquiry form, widget: string }
+              - { name: jobs, label: Jobs, widget: string }
+              - { name: textClub, label: Text club signup, widget: string }
+              - { name: instagram, label: Instagram, widget: string }
+              - { name: facebook, label: Facebook, widget: string }
+      - name: gallery
+        label: Home page photos
+        file: src/content/gallery.json
+        format: json
+        media_folder: ../assets/photos
+        public_folder: ../assets/photos
+        fields:
+          - name: photos
+            label: Photos (first six show on the home page)
+            widget: list
+            summary: "{{fields.alt}}"
+            fields:
+              - { name: id, label: Short ID (no spaces), widget: string }
+              - { name: image, label: Photo, widget: image }
+              - { name: alt, label: Description (for screen readers), widget: string }
+              - { name: order, label: Order, widget: number, value_type: int }

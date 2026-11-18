@@ -1,0 +1,48 @@
+---
+import { url, pages, site } from "../lib";
+const ext = { target: "_blank", rel: "noopener" };
+---
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="stack">
+        <img class="footer-logo" src={url("/logo-cream.png")} alt="La Chev 208" width="332" height="127" loading="lazy" />
+        <address>
+          {site.address.street}<br />{site.address.city}, {site.address.state} {site.address.zip}
+        </address>
+        <p><a href={site.phoneHref}>{site.phone}</a><br /><a href={`mailto:${site.email}`}>{site.email}</a></p>
+      </div>
+      <div>
+        <h2>Hours</h2>
+        <ul class="footer-links">
+          {site.hours.map((h) => <li class="footer-hours">{h.days}<br /><span>{h.time}</span></li>)}
+        </ul>
+      </div>
+      <div>
+        <h2>Visit</h2>
+        <ul class="footer-links">
+          <li><a href={url(pages.food)}>Food menu</a></li>
+          <li><a href={url(pages.drink)}>Drink menu</a></li>
+          <li><a href={url(pages.events)}>Events &amp; specials</a></li>
+          <li><a href={url(pages.party)}>Private parties &amp; catering</a></li>
+          <li><a href={url(pages.accessibility)}>Accessibility</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2>Elsewhere</h2>
+        <ul class="footer-links">
+          <li><a href={site.links.resy} {...ext}>Reservations on Resy</a></li>
+          <li><a href={site.links.toastGiftCards} {...ext}>Gift cards</a></li>
+          <li><a href={site.links.textClub} {...ext}>Join our text club</a></li>
+          <li><a href={site.links.jobs} {...ext}>Jobs</a></li>
+          <li><a href={site.links.instagram} {...ext}>Instagram</a></li>
+          <li><a href={site.links.facebook} {...ext}>Facebook</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-base">
+      <p class="concept-note">Concept preview by ZarSeb Enterprises — not the official La Chev 208 website.</p>
+      <p>© {new Date().getFullYear()} La Chev 208 · Summerville, South Carolina</p>
+    </div>
+  </div>
+</footer>

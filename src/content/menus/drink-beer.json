@@ -1,0 +1,284 @@
+{
+  "page": "drink",
+  "title": "Beer",
+  "order": 4,
+  "note": "",
+  "sections": [
+    {
+      "title": "Cans and Bottles",
+      "note": "",
+      "items": [
+        {
+          "name": "Florida Seltzer",
+          "description": "",
+          "prices": [
+            {
+              "amount": "9",
+              "unit": ""
+            }
+          ]
+        },
+        {
+          "name": "Doc's Pear Cider",
+          "description": "",
+          "prices": [
+            {
+              "amount": "8",
+              "unit": ""
+            }
+          ]
+        },
+        {
+          "name": "Potter's Grapefruit Session Cider",
+          "description": "",
+          "prices": [
+            {
+              "amount": "7",
+              "unit": ""
+            }
+          ]
+        },
+        {
+          "name": "Shacksbury Dry Classic Cider",
+          "description": "",
+          "prices": [
+            {
+              "amount": "8",
+              "unit": ""
+            }
+          ]
+        },
+        {
+          "name": "Yuengling Black & Tan",
+          "description": "",
+          "prices": [
+            {
+              "amount": "4",
+              "unit": ""
+            }
+          ]
+        },
+        {
+          "name": "Yuengling Lager",
+          "description": "",
+          "prices": [
+            {
+              "amount": "4",
+              "unit": ""
+            }
+          ]
+        },
+        {
+          "name": "Mich Ultra",
+          "description": "",
+          "prices": [
+            {
+              "amount": "4",
+              "unit": ""
+            }
+          ]
+        },
+        {
+          "name": "Holy City Pilsner",
+          "description": "",
+          "prices": [
+            {
+              "amount": "6",
+              "unit": ""
+            }
+          ]
+        },
+        {
+          "name": "Coast Brewing Kölsch",
+          "description": "",
+          "prices": [
+            {
+              "amount": "6",
+              "unit": ""
+            }
+          ]
+        },
+        {
+          "name": "Stella",
+          "description": "",
+          "prices": [
+            {
+              "amount": "6",
+              "unit": ""
+            }
+          ]
+        },
+        {
+          "name": "Revelry Blonde Ale",
+          "description": "",
+          "prices": [
+            {
+              "amount": "7",
+              "unit": ""
+            }
+          ]
+        },
+        {
+          "name": "San Papiers Golden Ale",
+          "description": "",
+          "prices": [
+            {
+              "amount": "10",
+              "unit": ""
+            }
+          ]
+        },
+        {
+          "name": "The Southern Growl Red Ale",
+          "description": "",
+          "prices": [
+            {
+              "amount": "7",
+              "unit": ""
+            }
+          ]
+        },
+        {
+          "name": "1906 Amber Ale",
+          "description": "",
+          "prices": [
+            {
+              "amount": "6",
+              "unit": ""
+            }
+          ]
+        },
+        {
+          "name": "Kentucky Vanilla Cream Ale",
+          "description": "",
+          "prices": [
+            {
+              "amount": "8",
+              "unit": ""
+            }
+          ]
+        },
+        {
+          "name": "Prairie Patches Sour",
+          "description": "",
+          "prices": [
+            {
+              "amount": "8",
+              "unit": ""
+            }
+          ]
+        },
+        {
+          "name": "Urban Artifact Black Ras Tart",
+          "description": "",
+          "prices": [
+            {
+              "amount": "6",
+              "unit": ""
+            }
+          ]
+        },
+        {
+          "name": "Holy City Hazy Dice IPA",
+          "description": "",
+          "prices": [
+            {
+              "amount": "6",
+              "unit": ""
+            }
+          ]
+        },
+        {
+          "name": "Edmund's Oast Bound by Time IPA",
+          "description": "",
+          "prices": [
+            {
+              "amount": "8",
+              "unit": ""
+            }
+          ]
+        },
+        {
+          "name": "Creature Comforts Tropicalia IPA",
+          "description": "",
+          "prices": [
+            {
+              "amount": "7",
+              "unit": ""
+            }
+          ]
+        },
+        {
+          "name": "Coast HopArt IPA",
+          "description": "",
+          "prices": [
+            {
+              "amount": "7",
+              "unit": ""
+            }
+          ]
+        },
+        {
+          "name": "Westbrook White Thai",
+          "description": "",
+          "prices": [
+            {
+              "amount": "6",
+              "unit": ""
+            }
+          ]
+        },
+        {
+          "name": "Ommegang Hennepin Saison",
+          "description": "",
+          "prices": [
+            {
+              "amount": "10",
+              "unit": ""
+            }
+          ]
+        },
+        {
+          "name": "Avery Ellies Brown",
+          "description": "",
+          "prices": [
+            {
+              "amount": "7",
+              "unit": ""
+            }
+          ]
+        },
+        {
+          "name": "Andechs Doppelbock Dunkel",
+          "description": "",
+          "prices": [
+            {
+              "amount": "12",
+              "unit": ""
+            }
+          ]
+        },
+        {
+          "name": "Guinness",
+          "description": "",
+          "prices": [
+            {
+              "amount": "8",
+              "unit": ""
+            }
+          ]
+        },
+        {
+          "name": "Edmund's Oast Leather Jacket Porter",
+          "description": "",
+          "prices": [
+            {
+              "amount": "8",
+              "unit": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

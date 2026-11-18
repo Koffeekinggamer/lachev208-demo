@@ -1,0 +1,270 @@
+{
+  "page": "food",
+  "title": "Lunch",
+  "order": 1,
+  "note": "*Consuming raw or undercooked meats, poultry, seafood, shellfish, or eggs may increase your risk of foodborne illness.",
+  "sections": [
+    {
+      "title": "Soups & Salads",
+      "note": "Half and half available.",
+      "items": [
+        {
+          "name": "Caesar",
+          "description": "Romaine, citrus crouton, confit tomato, parmesan.",
+          "prices": [
+            {
+              "amount": "12",
+              "unit": ""
+            }
+          ]
+        },
+        {
+          "name": "Chevalier",
+          "description": "Mesculin, strawberry, goat cheese, pecan.",
+          "prices": [
+            {
+              "amount": "12",
+              "unit": ""
+            }
+          ]
+        },
+        {
+          "name": "Golden Beet",
+          "description": "Smoked almonds, gorgonzola, citrus vinaigrette.",
+          "prices": [
+            {
+              "amount": "14",
+              "unit": ""
+            }
+          ]
+        },
+        {
+          "name": "Fig & Prosciutto",
+          "description": "Pickled red onion, goat cheese, arugula.",
+          "prices": [
+            {
+              "amount": "18",
+              "unit": ""
+            }
+          ]
+        },
+        {
+          "name": "Oyster Salad",
+          "description": "Pickled shallot crema, candy pecans, gorgonzola, spinach",
+          "prices": [
+            {
+              "amount": "18",
+              "unit": ""
+            }
+          ]
+        },
+        {
+          "name": "Cobb Salad",
+          "description": "Blaconed salmon, egg, bacon, avocado, tomato, gorgonzola, pickled red onions, buttermilk herb dressing",
+          "prices": [
+            {
+              "amount": "20",
+              "unit": ""
+            }
+          ]
+        },
+        {
+          "name": "Lobster Bisque",
+          "description": "Sweet corn relish.",
+          "prices": [
+            {
+              "amount": "7",
+              "unit": "Cup"
+            },
+            {
+              "amount": "8",
+              "unit": "Bowl"
+            }
+          ]
+        },
+        {
+          "name": "Smoked Corn Chowder",
+          "description": "Blue crab",
+          "prices": [
+            {
+              "amount": "7",
+              "unit": "Cup"
+            },
+            {
+              "amount": "8",
+              "unit": "Bowl"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Small Plates",
+      "note": "",
+      "items": [
+        {
+          "name": "Pomme Frites",
+          "description": "Duck fat, rosemary, shaved gruyere, rouille.",
+          "prices": [
+            {
+              "amount": "14",
+              "unit": ""
+            }
+          ]
+        },
+        {
+          "name": "Provencal Mussels",
+          "description": "Saffron, sweet onion, pepper flake.",
+          "prices": [
+            {
+              "amount": "18",
+              "unit": ""
+            }
+          ]
+        },
+        {
+          "name": "Duck Dumplings",
+          "description": "Cabernet sweet and sour.",
+          "prices": [
+            {
+              "amount": "18",
+              "unit": ""
+            }
+          ]
+        },
+        {
+          "name": "House-made Meatballs",
+          "description": "Lamb and beef, French onion jus.",
+          "prices": [
+            {
+              "amount": "15",
+              "unit": ""
+            }
+          ]
+        },
+        {
+          "name": "Deviled Eggs",
+          "description": "jalapeno, Bacon, chive crema, crispy potato.",
+          "prices": [
+            {
+              "amount": "15",
+              "unit": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Handhelds",
+      "note": "Served with choice of side.",
+      "items": [
+        {
+          "name": "208 Patty Melt",
+          "description": "Braised onions, gruyere, rouille, sourdough.",
+          "prices": [
+            {
+              "amount": "18",
+              "unit": ""
+            }
+          ]
+        },
+        {
+          "name": "Southern Pimento & Bacon",
+          "description": "Vine ripe tomato, sourdough.",
+          "prices": [
+            {
+              "amount": "16",
+              "unit": ""
+            }
+          ]
+        },
+        {
+          "name": "1st Street Chicken Salad",
+          "description": "Cranberry, pecan, mixed greens, sourdough.",
+          "prices": [
+            {
+              "amount": "18",
+              "unit": ""
+            }
+          ]
+        },
+        {
+          "name": "Shrimp Salad Croissant",
+          "description": "Celery, Red onion, citrus herb aioli",
+          "prices": [
+            {
+              "amount": "18",
+              "unit": ""
+            }
+          ]
+        },
+        {
+          "name": "Blackened Steak Gyro",
+          "description": "Tomato Salad, arugula, pickled red onions",
+          "prices": [
+            {
+              "amount": "20",
+              "unit": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Large Plates",
+      "note": "",
+      "items": [
+        {
+          "name": "*Salmon",
+          "description": "Creamed corn, arugula, confit tomato, port wine gastrique",
+          "prices": [
+            {
+              "amount": "22",
+              "unit": ""
+            }
+          ]
+        },
+        {
+          "name": "Shrimp & Grits",
+          "description": "Confit tomato, applewood bacon, basil.",
+          "prices": [
+            {
+              "amount": "20",
+              "unit": ""
+            }
+          ]
+        },
+        {
+          "name": "208 Fried Chicken",
+          "description": "Andouille red rice, collard greens, hot honey",
+          "prices": [
+            {
+              "amount": "18",
+              "unit": ""
+            }
+          ]
+        },
+        {
+          "name": "*Steak Cheval",
+          "description": "Ground lamb, Whipped potatoes, green beans, onion gravy",
+          "prices": [
+            {
+              "amount": "22",
+              "unit": ""
+            }
+          ]
+        },
+        {
+          "name": "Wild Mushroom Risotto",
+          "description": "Fresh basil, truffle oil.",
+          "prices": [
+            {
+              "amount": "18",
+              "unit": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

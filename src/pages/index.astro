@@ -1,0 +1,178 @@
+---
+import { getCollection } from "astro:content";
+import Base from "../layouts/Base.astro";
+import Photo from "../components/Photo.astro";
+import { url, pages, site } from "../lib";
+import poster from "../assets/photos/house-and-patio.jpg";
+import lamb from "../assets/photos/smoked-rack-of-lamb.jpg";
+import flounder from "../assets/photos/crab-stuffed-flounder.jpg";
+import martini from "../assets/photos/espresso-martini.jpg";
+import desserts from "../assets/photos/desserts-for-a-party.jpg";
+import texture from "../assets/photos/grape-texture.jpg";
+import team from "../assets/photos/kitchen-team-wide.jpg";
+
+const gallery = (await getCollection("gallery")).sort((a, b) => a.data.order - b.data.order).slice(0, 6);
+const ext = { target: "_blank", rel: "noopener" };
+const nextEvent = (await getCollection("events", (e) => e.data.published))
+  .sort((a, b) => +a.data.date - +b.data.date)[0];
+const jsonLd = {
+  "@context": "https://schema.org", "@type": "Restaurant", name: site.name, servesCuisine: "French",
+  telephone: "+1-843-285-5141", email: site.email, acceptsReservations: site.links.resy,
+  address: { "@type": "PostalAddress", streetAddress: site.address.street, addressLocality: site.address.city, addressRegion: site.address.state, postalCode: site.address.zip, addressCountry: "US" },
+  openingHours: ["Mo-Th 11:00-22:00", "Fr-Sa 11:00-23:00", "Su 10:00-21:00"],
+  sameAs: [site.links.instagram, site.links.facebook],
+};
+---
+<Base title="La Chev 208 · French restaurant & bar in Summerville, SC" description="Refined French dining, a lively backyard patio and a serious wine and spirits list at 208 East 1st North Street, Summerville, SC." jsonLd={jsonLd}>
+  <section class="hero" aria-label="Welcome">
+    <div class="hero__media" data-parallax>
+      <Photo src={poster} alt="" sizes="100vw" widths={[640, 960, 1280]} eager parallax={false} />
+      <video data-hero-video muted playsinline loop preload="none" aria-hidden="true" tabindex="-1"
+        data-src-sm={url("/video/hero-720.mp4")} data-src-lg={url("/video/hero-1280.mp4")}></video>
+    </div>
+    <div class="wrap">
+      <div class="hero__copy" data-reveal-group>
+        <span class="eyebrow">French dining · Summerville</span>
+        <h1>La Chev 208</h1>
+        <p>Refined elegance indoors, a lively backyard outside, and a wine list worth lingering over.</p>
+        <div class="btn-row">
+          <a class="btn btn--solid" href={site.links.resy} {...ext}>Reserve a table<span class="sr-only"> on Resy (opens in a new tab)</span></a>
+          <a class="btn btn--ghost" href={url(pages.food)}>See the menu</a>
+        </div>
+      </div>
+    </div>
+    <button class="video-toggle" type="button" hidden aria-pressed="false"><span>Pause video</span></button>
+  </section>
+
+  <section class="section" id="about" aria-labelledby="about-h">
+    <div class="wrap split">
+      <div class="stack" data-reveal-group>
+        <span class="eyebrow">About us</span>
+        <h2 id="about-h">Exceptional food, unforgettable moments</h2>
+        <p class="lede">At La Chev 208, dining is more than a meal. Nestled at 208 East 1st North Street, the restaurant pairs refined elegance with a little playful charm.</p>
+        <p class="muted">Inside is a sophisticated room for intimate dinners and celebrations. Step outside and the backyard turns into a lively escape where good times are always on the menu.</p>
+        <a class="link-arrow" href="#visit">Hours &amp; directions</a>
+      </div>
+      <div data-reveal>
+        <div class="frame frame--portrait"><Photo src={lamb} alt="Smoked rack of lamb, plated with a red-wine glaze" sizes="(min-width: 900px) 45vw, 100vw" /></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--surface" id="menus" aria-labelledby="menus-h">
+    <div class="wrap">
+      <div class="section-head" data-reveal-group>
+        <span class="eyebrow">Our menus</span>
+        <h2 id="menus-h">Lunch, dinner, Sunday brunch — and the cellar</h2>
+      </div>
+      <div class="grid grid--2" data-stagger="120">
+        <article class="card" data-reveal>
+          <div class="frame frame--wide"><Photo src={flounder} alt="Crab-stuffed flounder" sizes="(min-width: 700px) 48vw, 100vw" /></div>
+          <div class="card__body">
+            <h3>Food</h3>
+            <p class="muted">Lunch, dinner and brunch: French classics alongside Southern favorites.</p>
+            <a class="link-arrow" href={url(pages.food)}>View the food menu</a>
+          </div>
+        </article>
+        <article class="card" data-reveal>
+          <div class="frame frame--wide"><Photo src={martini} alt="Espresso martini" sizes="(min-width: 700px) 48vw, 100vw" /></div>
+          <div class="card__body">
+            <h3>Drinks</h3>
+            <p class="muted">Over a hundred wines, house cocktails, bourbon and rye, and zero-proof pours.</p>
+            <a class="link-arrow" href={url(pages.drink)}>View the drink menu</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="band section" id="reserve" aria-labelledby="reserve-h">
+    <div class="band__texture" aria-hidden="true"><Photo src={texture} alt="" sizes="100vw" widths={[800, 1382]} /></div>
+    <div class="wrap section-head section-head--center" data-reveal-group style="margin-bottom:0">
+      <img class="deco" src={url("/deco-vine-cream.png")} alt="" width="420" height="290" loading="lazy" />
+      <span class="eyebrow">Reservations</span>
+      <h2 id="reserve-h">Your table, ready when you are</h2>
+      <p>Book on Resy for dinner, brunch or a night on the patio. Planning something bigger? See private parties.</p>
+      <div class="btn-row" style="justify-content:center">
+        <a class="btn btn--light" href={site.links.resy} {...ext}>Book on Resy<span class="sr-only"> (opens in a new tab)</span></a>
+        <a class="btn btn--light" href={site.phoneHref}>Call {site.phone}</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="gallery" aria-labelledby="gallery-h">
+    <div class="wrap">
+      <div class="section-head" data-reveal-group>
+        <span class="eyebrow">From the kitchen</span>
+        <h2 id="gallery-h">A taste of the table</h2>
+      </div>
+      <div class="gallery" data-stagger="80">
+        {gallery.map((g) => (
+          <figure class="frame" data-reveal style="margin:0">
+            <Photo src={g.data.image} alt={g.data.alt} sizes="(min-width: 900px) 31vw, 48vw" widths={[320, 480, 640, 800]} />
+          </figure>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--surface" aria-labelledby="gather-h">
+    <div class="wrap split split--flip">
+      <div class="stack" data-reveal-group>
+        <span class="eyebrow">Parties &amp; catering</span>
+        <h2 id="gather-h">From intimate gatherings to grand celebrations</h2>
+        <p class="muted">Birthdays, rehearsal dinners, holiday parties and corporate evenings, inside, out back on the patio, or catered wherever you are.</p>
+        <a class="link-arrow" href={url(pages.party)}>Plan an event</a>
+      </div>
+      <div data-reveal>
+        <div class="frame frame--wide"><Photo src={team} alt="The kitchen team behind a long grazing board of charcuterie and cheese" sizes="(min-width: 900px) 45vw, 100vw" /></div>
+      </div>
+    </div>
+  </section>
+
+  {nextEvent && (
+    <section class="section section--tight" aria-labelledby="next-h">
+      <div class="wrap split">
+        <div class="stack" data-reveal-group>
+          <span class="eyebrow">Coming up</span>
+          <h2 id="next-h">{nextEvent.data.title}</h2>
+          <p class="lede">{nextEvent.data.date.toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric", timeZone: "UTC" })} · {nextEvent.data.start} – {nextEvent.data.end}</p>
+          <p class="muted">{nextEvent.data.summary}</p>
+          <a class="link-arrow" href={url(pages.events)}>All events &amp; specials</a>
+        </div>
+        <div data-reveal>
+          <div class="frame frame--wide"><Photo src={desserts} alt="Rows of plated desserts ready for a celebration" sizes="(min-width: 900px) 45vw, 100vw" /></div>
+        </div>
+      </div>
+    </section>
+  )}
+
+  <section class="section section--surface" id="visit" aria-labelledby="visit-h">
+    <div class="wrap">
+      <div class="section-head" data-reveal-group>
+        <span class="eyebrow">Visit</span>
+        <h2 id="visit-h">Your perfect spot in Summerville</h2>
+      </div>
+      <div class="visit" data-stagger="100">
+        <div class="stack" data-reveal>
+          <h3>Find us</h3>
+          <address>{site.address.street}<br />{site.address.city}, {site.address.state} {site.address.zip}</address>
+          <div class="btn-row">
+            <a class="btn btn--ghost" href={site.links.directions} {...ext}>Directions<span class="sr-only"> in Google Maps (opens in a new tab)</span></a>
+          </div>
+        </div>
+        <div class="stack" data-reveal>
+          <h3>Hours</h3>
+          <dl class="hours">
+            {site.hours.map((h) => <div><dt>{h.days}</dt><dd>{h.time}</dd></div>)}
+          </dl>
+        </div>
+        <div class="stack" data-reveal>
+          <h3>Get in touch</h3>
+          <p><a href={site.phoneHref}>{site.phone}</a><br /><a href={`mailto:${site.email}`}>{site.email}</a></p>
+          <p class="muted">Takeout: <a href={site.links.toastOrder} {...ext}>order on Toast</a> or call us. <a href={site.links.toastGiftCards} {...ext}>Gift cards</a> are on Toast too.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,72 @@
+---
+import Base from "../layouts/Base.astro";
+import PageHero from "../components/PageHero.astro";
+import Photo from "../components/Photo.astro";
+import { site } from "../lib";
+import hero from "../assets/photos/house-and-patio.jpg";
+import grazing from "../assets/photos/kitchen-team-grazing-board.jpg";
+import lamb from "../assets/photos/smoked-rack-of-lamb.jpg";
+import desserts from "../assets/photos/desserts-for-a-party.jpg";
+import plated from "../assets/photos/crab-stuffed-flounder-plated.jpg";
+import steak from "../assets/photos/seared-steak.jpg";
+const ext = { target: "_blank", rel: "noopener" };
+---
+<Base title="Private parties & catering · La Chev 208, Summerville SC" description="Private dining, patio parties and catering from La Chev 208 in Summerville, SC: birthdays, rehearsal dinners, holiday and corporate events." current="party">
+  <PageHero image={hero} alt="The La Chev 208 house and backyard patio" eyebrow="Private parties & catering" title="Celebrate here, or let us come to you" position="50% 60%">
+    <p>Elegant dining inside, a lively patio out back, and catering for gatherings of every size.</p>
+  </PageHero>
+
+  <section class="section" aria-labelledby="options-h">
+    <div class="wrap">
+      <div class="section-head" data-reveal-group>
+        <span class="eyebrow">Ways to gather</span>
+        <h2 id="options-h">Turn moments into memories</h2>
+        <p class="lede">Birthday, rehearsal dinner, holiday party or a corporate evening — tell us about it and we’ll shape the menu and the room around it.</p>
+      </div>
+      <div class="grid grid--3" data-stagger="110">
+        <article class="card" data-reveal>
+          <div class="frame frame--wide"><Photo src={plated} alt="Plated crab-stuffed flounder ready for service" sizes="(min-width: 1024px) 31vw, 100vw" /></div>
+          <div class="card__body"><h3>Private dining</h3><p class="muted">Intimate dinners and seated celebrations in our dining room.</p></div>
+        </article>
+        <article class="card" data-reveal>
+          <div class="frame frame--wide"><Photo src={desserts} alt="Rows of plated desserts for a party" sizes="(min-width: 1024px) 31vw, 100vw" /></div>
+          <div class="card__body"><h3>Patio parties</h3><p class="muted">A relaxed, open-air gathering in the backyard.</p></div>
+        </article>
+        <article class="card" data-reveal>
+          <div class="frame frame--wide"><Photo src={grazing} alt="Chefs behind a grazing board of charcuterie and cheese" sizes="(min-width: 1024px) 31vw, 100vw" /></div>
+          <div class="card__body"><h3>Catering</h3><p class="muted">Grazing boards to full menus, delivered to your venue.</p></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--surface" id="parties" aria-labelledby="parties-h">
+    <div class="wrap split">
+      <div class="stack" data-reveal-group>
+        <span class="eyebrow">Group reservations</span>
+        <h2 id="parties-h">Private parties</h2>
+        <p class="muted">From intimate gatherings to grand celebrations: experience elegant fine dining inside and a lively, casual atmosphere in our outdoor space.</p>
+        <div class="btn-row">
+          <a class="btn btn--solid" href={site.links.partyInquiry} {...ext}>Send a party inquiry<span class="sr-only"> (opens in a new tab)</span></a>
+          <a class="btn btn--ghost" href={site.phoneHref}>Call {site.phone}</a>
+        </div>
+      </div>
+      <div data-reveal><div class="frame frame--portrait"><Photo src={steak} alt="Seared steak with sauces on a dark plate" sizes="(min-width: 900px) 45vw, 100vw" /></div></div>
+    </div>
+  </section>
+
+  <section class="section" id="catering" aria-labelledby="catering-h">
+    <div class="wrap split split--flip">
+      <div class="stack" data-reveal-group>
+        <span class="eyebrow">Fresh, flavorful, delivered</span>
+        <h2 id="catering-h">Catering</h2>
+        <p class="muted">Let us elevate your next event. Whether it’s a small family gathering or a large corporate function, we offer a range of dishes that will impress your guests — birthdays, holiday parties, corporate events, wedding festivities and more.</p>
+        <div class="btn-row">
+          <a class="btn btn--solid" href={site.links.cateringInquiry} {...ext}>Request catering<span class="sr-only"> (opens in a new tab)</span></a>
+          <a class="btn btn--ghost" href={`mailto:${site.email}`}>Email us</a>
+        </div>
+      </div>
+      <div data-reveal><div class="frame frame--portrait"><Photo src={lamb} alt="Smoked rack of lamb" sizes="(min-width: 900px) 45vw, 100vw" /></div></div>
+    </div>
+  </section>
+</Base>

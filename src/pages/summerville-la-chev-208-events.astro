@@ -1,0 +1,74 @@
+---
+import { getCollection } from "astro:content";
+import Base from "../layouts/Base.astro";
+import PageHero from "../components/PageHero.astro";
+import Photo from "../components/Photo.astro";
+import { url, pages, site } from "../lib";
+import hero from "../assets/photos/kitchen-team-wide.jpg";
+import desserts from "../assets/photos/desserts-for-a-party.jpg";
+const events = (await getCollection("events", (e) => e.data.published)).sort((a, b) => +a.data.date - +b.data.date);
+const specials = (await getCollection("specials", (s) => s.data.active)).sort((a, b) => a.data.order - b.data.order);
+const ext = { target: "_blank", rel: "noopener" };
+const fmt = (d: Date) => d.toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric", year: "numeric", timeZone: "UTC" });
+---
+<Base title="Events & specials · La Chev 208, Summerville SC" description="Holiday dinners, seasonal events and specials at La Chev 208 in Summerville, SC." current="events">
+  <PageHero image={hero} alt="The La Chev 208 kitchen team behind a long grazing board" eyebrow="Events & specials" title="Gather with us" position="50% 35%">
+    <p>Holidays, celebrations and the occasional excuse to open something special.</p>
+  </PageHero>
+
+  <section class="section" aria-labelledby="events-h">
+    <div class="wrap">
+      <div class="section-head" data-reveal-group>
+        <span class="eyebrow">Upcoming</span>
+        <h2 id="events-h">Events</h2>
+      </div>
+      <div class="events-list">
+        {events.map((e) => (
+          <article class="event" data-reveal>
+            {e.data.image && <div class="frame"><Photo src={e.data.image} alt={e.data.imageAlt} sizes="(min-width: 900px) 40vw, 100vw" /></div>}
+            <div class="event__body">
+              <p class="event__date"><time datetime={e.data.date.toISOString().slice(0, 10)}>{fmt(e.data.date)}</time> · {e.data.start} – {e.data.end}</p>
+              <h3>{e.data.title}</h3>
+              <p class="muted">{e.data.summary}</p>
+              <div class="btn-row"><a class="btn btn--solid" href={site.links.resy} {...ext}>Reserve<span class="sr-only"> for {e.data.title} on Resy (opens in a new tab)</span></a></div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--surface" id="specials" aria-labelledby="specials-h">
+    <div class="wrap split">
+      <div class="stack" data-reveal-group>
+        <span class="eyebrow">Specials</span>
+        <h2 id="specials-h">This week</h2>
+        {specials.length > 0 ? (
+          <ul style="list-style:none;padding:0;margin:0">
+            {specials.map((s) => (
+              <li class="special">
+                <h3>{s.data.title}</h3>
+                <p class="event__date">{s.data.when}{s.data.price && ` · ${s.data.price}`}</p>
+                {s.data.description && <p class="muted">{s.data.description}</p>}
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <div class="notice">
+            <p class="lede">New specials are on the way.</p>
+            <p class="muted">Follow along on <a href={site.links.instagram} {...ext}>Instagram</a> or <a href={site.links.textClub} {...ext}>join our text club</a> to hear first.</p>
+          </div>
+        )}
+      </div>
+      <div data-reveal><div class="frame frame--portrait"><Photo src={desserts} alt="Rows of plated desserts" sizes="(min-width: 900px) 45vw, 100vw" /></div></div>
+    </div>
+  </section>
+
+  <section class="band section section--tight" aria-labelledby="host-h">
+    <div class="wrap section-head section-head--center" data-reveal-group style="margin-bottom:0">
+      <span class="eyebrow">Your own occasion</span>
+      <h2 id="host-h">Host your event at La Chev 208</h2>
+      <div class="btn-row" style="justify-content:center"><a class="btn btn--light" href={url(pages.party)}>Private parties &amp; catering</a></div>
+    </div>
+  </section>
+</Base>
