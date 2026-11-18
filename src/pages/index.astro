@@ -2,8 +2,10 @@
 import { getCollection } from "astro:content";
 import Base from "../layouts/Base.astro";
 import Photo from "../components/Photo.astro";
-import { url, pages, site } from "../lib";
+import LcpPreload from "../components/LcpPreload.astro";
+import { url, pages, site, takeoutIsOnline } from "../lib";
 import poster from "../assets/photos/house-and-patio.jpg";
+import patioHero from "../assets/photos/patio-table.jpg";
 import lamb from "../assets/photos/smoked-rack-of-lamb.jpg";
 import flounder from "../assets/photos/crab-stuffed-flounder.jpg";
 import martini from "../assets/photos/espresso-martini.jpg";
@@ -24,14 +26,27 @@ const jsonLd = {
 };
 ---
 <Base title="La Chev 208 · French restaurant & bar in Summerville, SC" description="Refined French dining, a lively backyard patio and a serious wine and spirits list at 208 East 1st North Street, Summerville, SC." jsonLd={jsonLd}>
+  <Fragment slot="head">
+    <LcpPreload src={poster} widths={[640, 960, 1280]} sizes="100vw" />
+  </Fragment>
   <section class="hero" aria-label="Welcome">
     <div class="hero__media" data-parallax>
-      <Photo src={poster} alt="" sizes="100vw" widths={[640, 960, 1280]} eager parallax={false} />
-      <video data-hero-video muted playsinline loop preload="none" aria-hidden="true" tabindex="-1"
-        data-src-sm={url("/video/hero-720.mp4")} data-src-lg={url("/video/hero-1280.mp4")}></video>
+      <div class="hero__slides" data-hero-slides>
+        <div class="hero__slide is-current" data-ken="a">
+          <Photo src={poster} alt="" sizes="100vw" widths={[640, 960, 1280]} eager parallax={false} />
+        </div>
+      </div>
+      <template data-hero-more>
+        <div class="hero__slide" data-ken="b">
+          <Photo src={patioHero} alt="" sizes="100vw" widths={[640, 800]} parallax={false} />
+        </div>
+        <div class="hero__slide" data-ken="c">
+          <Photo src={team} alt="" sizes="100vw" widths={[640, 960, 1280]} parallax={false} />
+        </div>
+      </template>
     </div>
     <div class="wrap">
-      <div class="hero__copy" data-reveal-group>
+      <div class="hero__copy">
         <span class="eyebrow">French dining · Summerville</span>
         <h1>La Chev 208</h1>
         <p>Refined elegance indoors, a lively backyard outside, and a wine list worth lingering over.</p>
@@ -41,7 +56,6 @@ const jsonLd = {
         </div>
       </div>
     </div>
-    <button class="video-toggle" type="button" hidden aria-pressed="false"><span>Pause video</span></button>
   </section>
 
   <section class="section" id="about" aria-labelledby="about-h">
@@ -170,7 +184,13 @@ const jsonLd = {
         <div class="stack" data-reveal>
           <h3>Get in touch</h3>
           <p><a href={site.phoneHref}>{site.phone}</a><br /><a href={`mailto:${site.email}`}>{site.email}</a></p>
-          <p class="muted">Takeout: <a href={site.links.toastOrder} {...ext}>order on Toast</a> or call us. <a href={site.links.toastGiftCards} {...ext}>Gift cards</a> are on Toast too.</p>
+          <p class="muted">
+            {takeoutIsOnline ? (
+              <>Takeout: <a href={site.links.toastOrder} {...ext}>order on Toast</a> or <a href={site.phoneHref}>call us</a>. <a href={site.links.toastGiftCards} {...ext}>Gift cards</a> are on Toast too.</>
+            ) : (
+              <>Takeout: <a href={site.phoneHref}>Call {site.phone}</a>. <a href={site.links.toastGiftCards} {...ext}>Gift cards</a> are on Toast too.</>
+            )}
+          </p>
         </div>
       </div>
     </div>

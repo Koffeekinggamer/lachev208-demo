@@ -1,0 +1,12 @@
+---
+import { getImage } from "astro:assets";
+import type { ImageMetadata } from "astro";
+interface Props { src: ImageMetadata; widths?: number[]; sizes?: string }
+const { src, widths = [640, 960, 1280], sizes = "100vw" } = Astro.props;
+const ws = widths.filter((n) => n <= src.width);
+if (ws.length === 0) ws.push(src.width);
+const avifs = await Promise.all(ws.map((width) => getImage({ src, width, format: "avif", quality: 62 })));
+const srcset = avifs.map((im, i) => `${im.src} ${ws[i]}w`).join(", ");
+const mid = avifs[Math.min(avifs.length - 1, ws[0] <= 640 && ws.length > 1 ? 1 : 0)];
+---
+<link rel="preload" as="image" type="image/avif" href={mid.src} imagesrcset={srcset} imagesizes={sizes} fetchpriority="high" />

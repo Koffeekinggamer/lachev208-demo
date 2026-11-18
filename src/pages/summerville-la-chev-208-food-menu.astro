@@ -4,7 +4,8 @@ import Base from "../layouts/Base.astro";
 import PageHero from "../components/PageHero.astro";
 import MenuBoard from "../components/MenuBoard.astro";
 import Photo from "../components/Photo.astro";
-import { slug, site } from "../lib";
+import LcpPreload from "../components/LcpPreload.astro";
+import { slug, site, takeoutIsOnline } from "../lib";
 import hero from "../assets/photos/flounder-close.jpg";
 import risotto from "../assets/photos/wild-mushroom-risotto.jpg";
 import salmon from "../assets/photos/salmon.jpg";
@@ -13,6 +14,9 @@ const menus = (await getCollection("menus", (m) => m.data.page === "food")).sort
 const ext = { target: "_blank", rel: "noopener" };
 ---
 <Base title="Food menu · La Chev 208, Summerville SC" description="Lunch, dinner and Sunday brunch at La Chev 208: salads, small plates, handhelds and French-leaning entrées in Summerville, SC." current="food">
+  <Fragment slot="head">
+    <LcpPreload src={hero} sizes="100vw" />
+  </Fragment>
   <PageHero image={hero} alt="Crab-stuffed flounder on fine china, topped with greens" eyebrow="Food menu" title="Lunch, dinner & brunch" position="50% 40%">
     <p>Seasonal French cooking with Southern roots. Brunch is Sundays, 10 am – 4 pm.</p>
   </PageHero>
@@ -33,7 +37,11 @@ const ext = { target: "_blank", rel: "noopener" };
       </div>
       <div class="btn-row" style="margin-top:var(--s4)">
         <a class="btn btn--solid" href={site.links.resy} {...ext}>Reserve a table<span class="sr-only"> on Resy (opens in a new tab)</span></a>
-        <a class="btn btn--ghost" href={site.links.toastOrder} {...ext}>Order takeout<span class="sr-only"> on Toast (opens in a new tab)</span></a>
+        {takeoutIsOnline ? (
+          <a class="btn btn--ghost" href={site.links.toastOrder} {...ext}>Order takeout<span class="sr-only"> on Toast (opens in a new tab)</span></a>
+        ) : (
+          <a class="btn btn--ghost" href={site.phoneHref}>Call {site.phone}<span class="sr-only"> for takeout</span></a>
+        )}
       </div>
     </div>
   </section>

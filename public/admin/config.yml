@@ -19,8 +19,11 @@ publish_mode: simple
 site_url: https://koffeekinggamer.github.io/lachev208-demo/
 display_url: https://koffeekinggamer.github.io/lachev208-demo/
 logo_url: /lachev208-demo/logo-gold.png
-media_folder: src/assets/photos
-public_folder: /src/assets/photos
+# New generic uploads go in public/uploads and are served as-is.
+# Event and gallery photos stay in src/assets/photos (collection-level paths below)
+# so Astro can still process them.
+media_folder: public/uploads
+public_folder: /lachev208-demo/uploads
 
 collections:
   - name: menus
@@ -125,7 +128,8 @@ collections:
             collapsed: true
             fields:
               - { name: resy, label: Resy reservations, widget: string }
-              - { name: toastOrder, label: Toast online ordering, widget: string }
+              - { name: toastOrder, label: Toast online ordering URL, widget: string, hint: "Used only when 'Accepting online orders' is turned on." }
+              - { name: toastOrderEnabled, label: Accepting online orders on Toast, widget: boolean, default: false, hint: "Leave off while Toast is not accepting orders. Takeout buttons and links will go to the restaurant phone instead." }
               - { name: toastGiftCards, label: Toast gift cards, widget: string }
               - { name: directions, label: Google Maps directions, widget: string }
               - { name: partyInquiry, label: Party inquiry form, widget: string }

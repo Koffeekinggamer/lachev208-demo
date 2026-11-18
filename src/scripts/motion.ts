@@ -38,22 +38,32 @@ document.addEventListener("click", (e) => {
 /* Header state */
 const header = document.querySelector(".site-header");
 
-/* Reveal */
+/* Reveal: in-view items appear immediately; nothing stays hidden if IO is late */
 const revealables = Array.from(document.querySelectorAll<HTMLElement>("[data-reveal], [data-reveal-group]"));
 document.querySelectorAll<HTMLElement>("[data-stagger]").forEach((list) => {
-  const step = Number(list.dataset.stagger) || 90;
+  const step = Number(list.dataset.stagger) || 70;
   Array.from(list.children).forEach((c, i) => (c as HTMLElement).style.setProperty("--d", `${Math.min(i, 6) * step}ms`));
 });
+const revealInView = () => {
+  const h = window.innerHeight;
+  revealables.forEach((el) => {
+    const r = el.getBoundingClientRect();
+    if (r.top < h && r.bottom > 0) el.classList.add("is-in");
+  });
+};
 const io = "IntersectionObserver" in window
   ? new IntersectionObserver((entries) => {
       for (const en of entries) if (en.isIntersecting) { en.target.classList.add("is-in"); io!.unobserve(en.target); }
-    }, { rootMargin: "0px 0px -6% 0px", threshold: 0.12 })
+    }, { rootMargin: "0px 0px 0px 0px", threshold: 0.01 })
   : null;
 revealables.forEach((el) => (io ? io.observe(el) : el.classList.add("is-in")));
-requestAnimationFrame(() => requestAnimationFrame(() => {
-  const h = window.innerHeight * 0.94;
-  revealables.forEach((el) => { if (el.getBoundingClientRect().top < h) el.classList.add("is-in"); });
-}));
+revealInView();
+requestAnimationFrame(() => requestAnimationFrame(revealInView));
+const revealAll = () => {
+  revealables.forEach((el) => el.classList.add("is-in"));
+  root.classList.add("reveal-failsafe");
+};
+setTimeout(revealAll, 1500);
 
 /* Parallax paint: writes CSS variables only */
 const media = Array.from(document.querySelectorAll<HTMLElement>("[data-parallax]"));
@@ -85,23 +95,41 @@ addEventListener("scroll", request, { passive: true });
 addEventListener("resize", request);
 paint();
 
-/* Hero video: poster is the LCP image; the video only loads when motion is allowed */
-const video = document.querySelector<HTMLVideoElement>("[data-hero-video]");
-const vToggle = document.querySelector<HTMLButtonElement>(".video-toggle");
-function startVideo() {
-  if (!video || reduce) return;
-  const conn = (navigator as any).connection;
-  if (conn?.saveData) return;
-  if (!video.src) video.src = innerWidth < 760 ? video.dataset.srcSm! : video.dataset.srcLg!;
-  video.addEventListener("playing", () => video.classList.add("is-playing"), { once: true });
-  video.play().then(() => { if (vToggle) vToggle.hidden = false; }).catch(() => {});
+/* Hero stills: Ken Burns is CSS; additional slides load after `load` and crossfade */
+function startHeroSlides() {
+  const rootSlides = document.querySelector("[data-hero-slides]");
+  const tpl = document.querySelector<HTMLTemplateElement>("template[data-hero-more]");
+  if (!rootSlides || reduce) return;
+  if (tpl?.content) rootSlides.append(tpl.content.cloneNode(true));
+  const slides = () => Array.from(rootSlides.querySelectorAll(".hero__slide"));
+  if (slides().length < 2) return;
+  let i = 0;
+  setInterval(() => {
+    if (reduce) return;
+    const s = slides();
+    if (s.length < 2) return;
+    s[i].classList.remove("is-current");
+    i = (i + 1) % s.length;
+    s[i].classList.add("is-current");
+  }, 7000);
 }
-vToggle?.addEventListener("click", () => {
-  if (!video) return;
-  if (video.paused) { video.play(); vToggle.setAttribute("aria-pressed", "false"); vToggle.querySelector("span")!.textContent = "Pause video"; }
-  else { video.pause(); vToggle.setAttribute("aria-pressed", "true"); vToggle.querySelector("span")!.textContent = "Play video"; }
-});
-if (video) addEventListener("load", () => setTimeout(startVideo, 300), { once: true });
+addEventListener("load", () => startHeroSlides(), { once: true });
+
+/* Drink/food sticky nav: fade + arrow when more items are off to the right */
+function hintMenuNav() {
+  const scroller = document.querySelector<HTMLElement>(".menu-nav ul");
+  const wrap = scroller?.closest(".wrap") ?? scroller?.parentElement;
+  if (!scroller || !wrap) return;
+  const update = () => {
+    const can = scroller.scrollWidth > scroller.clientWidth + 2;
+    const atEnd = scroller.scrollLeft + scroller.clientWidth >= scroller.scrollWidth - 2;
+    wrap.classList.toggle("has-more", can && !atEnd);
+  };
+  scroller.addEventListener("scroll", update, { passive: true });
+  addEventListener("resize", update);
+  update();
+}
+hintMenuNav();
 
 /* Active section in the sticky menu nav */
 const menuLinks = Array.from(document.querySelectorAll<HTMLAnchorElement>(".menu-nav a"));
@@ -124,6 +152,6 @@ reduceQ.addEventListener("change", (e) => {
     revealables.forEach((el) => el.classList.add("is-in"));
     media.forEach((el) => el.style.removeProperty("--py"));
     heroCopy?.style.removeProperty("--copy-y");
-    if (video) { video.pause(); video.classList.remove("is-playing"); if (vToggle) vToggle.hidden = true; }
-  } else { request(); startVideo(); }
+    document.querySelectorAll(".hero__slide:not(.is-current)").forEach((el) => el.remove());
+  } else { request(); startHeroSlides(); }
 });

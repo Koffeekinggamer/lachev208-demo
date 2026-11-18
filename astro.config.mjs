@@ -33,5 +33,7 @@ export default defineConfig({
     "/about": r("/#about"),
     "/reservations": r("/#reserve"),
     "/summerville-la-chev-208-reservations": r("/#reserve"),
+    "/gift-cards": "https://www.toasttab.com/la-chev-208-208-e-1st-n-st/giftcards",
+    "/jobs": "https://tmt.spotapps.co/job-listings?spot_id=406693",
   },
 });

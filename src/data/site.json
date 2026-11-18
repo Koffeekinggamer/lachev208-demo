@@ -1,15 +1,32 @@
 {
   "name": "La Chev 208",
   "tagline": "French dining in Summerville",
-  "address": { "street": "208 East 1st North Street", "city": "Summerville", "state": "SC", "zip": "29483" },
+  "address": {
+    "street": "208 East 1st North Street",
+    "city": "Summerville",
+    "state": "SC",
+    "zip": "29483"
+  },
   "phone": "(843) 285-5141",
   "phoneHref": "tel:+18432855141",
   "email": "jason.glasshalffull@gmail.com",
   "hours": [
-    { "days": "Monday – Thursday", "time": "11 am – 10 pm" },
-    { "days": "Friday – Saturday", "time": "11 am – 11 pm" },
-    { "days": "Sunday brunch", "time": "10 am – 4 pm" },
-    { "days": "Sunday dinner", "time": "4 pm – 9 pm" }
+    {
+      "days": "Monday \u2013 Thursday",
+      "time": "11 am \u2013 10 pm"
+    },
+    {
+      "days": "Friday \u2013 Saturday",
+      "time": "11 am \u2013 11 pm"
+    },
+    {
+      "days": "Sunday brunch",
+      "time": "10 am \u2013 4 pm"
+    },
+    {
+      "days": "Sunday dinner",
+      "time": "4 pm \u2013 9 pm"
+    }
   ],
   "links": {
     "resy": "https://resy.com/cities/summerville-sc/venues/la-chev-208",
@@ -21,6 +38,7 @@
     "jobs": "https://tmt.spotapps.co/job-listings?spot_id=406693",
     "textClub": "https://tmt.spotapps.co/texting-permission?spot_id=406693",
     "instagram": "https://www.instagram.com/lachev208",
-    "facebook": "https://www.facebook.com/100084119259377"
+    "facebook": "https://www.facebook.com/100084119259377",
+    "toastOrderEnabled": false
   }
 }

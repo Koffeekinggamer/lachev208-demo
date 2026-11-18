@@ -31,8 +31,8 @@ Move it to `.github/workflows/` with a token that has that scope and switch Page
 | Private parties & catering (`#catering`) | `/summerville-la-chev-208-party` |
 | Accessibility | `/accessibility-page-01` |
 
-Aliases (`/menu`, `/-party`, `/catering`, `/about`, …) are generated as meta-refresh pages for the preview
-(`astro.config.mjs → redirects`). For a real launch on Cloudflare Pages, use `redirects/_redirects` (true 301s);
+Aliases (`/menu`, `/-party`, `/catering`, `/about`, `/gift-cards`, `/jobs`, …) are generated as meta-refresh pages for the preview
+(`astro.config.mjs → redirects`), each with `noindex, nofollow`. For a real launch on Cloudflare Pages, use `redirects/_redirects` (true 301s);
 the full map with notes is `redirects/redirect-map.csv`.
 
 ## Content (editable) vs design (locked)

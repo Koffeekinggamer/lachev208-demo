@@ -16,3 +16,6 @@ export const slug = (s: string) =>
 const unitLabel: Record<string, string> = { BTL: "Bottle", btl: "Bottle", Cup: "Cup", Bowl: "Bowl" };
 export const fmtUnit = (u: string) => unitLabel[u] ?? u.replace(/^(\d+)\s*oz$/i, "$1 oz");
 export const fmtAmount = (a: string) => `$${a}`;
+
+/** True only when staff have turned Toast ordering back on in site settings. */
+export const takeoutIsOnline = Boolean((site.links as { toastOrderEnabled?: boolean }).toastOrderEnabled && site.links.toastOrder);

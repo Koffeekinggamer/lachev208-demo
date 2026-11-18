@@ -9,7 +9,7 @@ const { image, alt, eyebrow, title, position = "50% 50%" } = Astro.props;
     <Photo src={image} alt={alt} sizes="100vw" eager />
   </div>
   <div class="wrap">
-    <div class="page-hero__copy" data-reveal-group>
+    <div class="page-hero__copy">
       <span class="eyebrow">{eyebrow}</span>
       <h1>{title}</h1>
       <slot />
