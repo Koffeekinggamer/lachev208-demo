@@ -1,0 +1,18 @@
+---
+const modules = import.meta.glob<{ default: string }>(
+  "../assets/hero-enhanced/house-and-patio-{780,1640,2880,3840}.avif",
+  { eager: true, query: "?url", import: "default" },
+);
+const avifs = Object.entries(modules)
+  .map(([k, url]) => {
+    const m = k.match(/house-and-patio-(\d+)\.avif$/);
+    return m ? { w: Number(m[1]), url } : null;
+  })
+  .filter((v): v is { w: number; url: string } => Boolean(v))
+  .sort((a, b) => a.w - b.w);
+const mid = avifs.find((v) => v.w === 780) ?? avifs[0];
+const srcset = avifs.map((v) => `${v.url} ${v.w}w`).join(", ");
+---
+{mid && (
+  <link rel="preload" as="image" type="image/avif" href={mid.url} imagesrcset={srcset} imagesizes="100vw" fetchpriority="high" />
+)}
