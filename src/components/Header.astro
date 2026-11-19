@@ -16,13 +16,14 @@ const items = [
     <div class="header-actions">
       <a class="btn btn--solid header-reserve" href={site.links.resy} target="_blank" rel="noopener">Reserve<span class="sr-only"> on Resy (opens in a new tab)</span></a>
       <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
-        <span class="bars" aria-hidden="true"></span><span>Menu</span>
+        <span class="bars" aria-hidden="true"></span><span class="sr-only">Menu</span>
       </button>
       <nav class="nav" id="site-nav" aria-label="Main">
         {items.map((i) => (
           <a href={url(i.href)} aria-current={current === i.key ? "page" : undefined}>{i.label}</a>
         ))}
-        <a class="btn btn--solid" href={site.links.resy} target="_blank" rel="noopener">Reserve<span class="sr-only"> on Resy (opens in a new tab)</span></a>
+        <a class="btn btn--solid nav-reserve" href={site.links.resy} target="_blank" rel="noopener">Reserve<span class="sr-only"> on Resy (opens in a new tab)</span></a>
+        <a class="btn btn--ghost nav-call" href={site.phoneHref}>Call {site.phone}</a>
       </nav>
     </div>
   </div>

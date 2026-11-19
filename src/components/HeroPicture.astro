@@ -1,0 +1,51 @@
+---
+interface Props {
+  name: "house-and-patio" | "patio-table" | "kitchen-team-wide";
+  eager?: boolean;
+  alt?: string;
+}
+const { name, eager = false, alt = "" } = Astro.props;
+const modules = import.meta.glob<{ default: string }>(
+  "../assets/hero-enhanced/*-{780,1640,2880,3200,3840}.{avif,webp,jpg}",
+  { eager: true, query: "?url", import: "default" },
+);
+type Var = { w: number; url: string };
+function variants(ext: string): Var[] {
+  const re = new RegExp(`${name}-(\\d+)\\.${ext}$`);
+  return Object.entries(modules)
+    .map(([k, url]) => {
+      const m = k.match(re);
+      return m ? { w: Number(m[1]), url } : null;
+    })
+    .filter((v): v is Var => Boolean(v))
+    .sort((a, b) => a.w - b.w);
+}
+const avifs = variants("avif");
+const webps = variants("webp");
+const jpgs = variants("jpg");
+const fallback = jpgs.find((v) => v.w === 1640)?.url ?? webps[0]?.url ?? avifs[0]?.url ?? "";
+const aspect: Record<Props["name"], { width: number; height: number }> = {
+  "house-and-patio": { width: 16, height: 9 },
+  "patio-table": { width: 1, height: 1 },
+  "kitchen-team-wide": { width: 1382, height: 1000 },
+};
+const dim = aspect[name];
+---
+<picture>
+  {avifs.length > 0 && (
+    <source type="image/avif" srcset={avifs.map((v) => `${v.url} ${v.w}w`).join(", ")} sizes="100vw" />
+  )}
+  {webps.length > 0 && (
+    <source type="image/webp" srcset={webps.map((v) => `${v.url} ${v.w}w`).join(", ")} sizes="100vw" />
+  )}
+  <img
+    src={fallback}
+    alt={alt}
+    width={dim.width}
+    height={dim.height}
+    sizes="100vw"
+    loading={eager ? "eager" : "lazy"}
+    decoding={eager ? "sync" : "async"}
+    fetchpriority={eager ? "high" : undefined}
+  />
+</picture>

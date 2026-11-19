@@ -4,3 +4,7 @@ dist/
 screens/
 lighthouse/
 .DS_Store
+
+# Local review build of the undeployed hero-enhance branch
+dist-hero-enhance/
+dist-mobile-polish/

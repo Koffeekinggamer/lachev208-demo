@@ -1,0 +1,22 @@
+---
+import { pages, site, url } from "../lib";
+const ext = { target: "_blank", rel: "noopener" };
+---
+<nav class="actionbar" aria-label="Quick actions">
+  <a href={site.phoneHref}>
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h3.5l1.6 4.2-2.2 1.4a11 11 0 0 0 5.5 5.5l1.4-2.2L19 14.5V18a1.5 1.5 0 0 1-1.6 1.5A14.5 14.5 0 0 1 3.5 5.6 1.5 1.5 0 0 1 5 4Z"/></svg>
+    <span>Call</span>
+  </a>
+  <a href={site.links.directions} {...ext}>
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s6.5-5.6 6.5-11a6.5 6.5 0 0 0-13 0c0 5.4 6.5 11 6.5 11Z"/><circle cx="12" cy="10" r="2.4"/></svg>
+    <span>Directions<span class="sr-only"> (opens in a new tab)</span></span>
+  </a>
+  <a href={url(pages.food)}>
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3v7a2 2 0 0 0 2 2v9M10 3v7a2 2 0 0 1-2 2M8 3v5M17 21V3c-2 1.5-3 4-3 7v3h3"/></svg>
+    <span>Menu</span>
+  </a>
+  <a class="is-primary" href={site.links.resy} {...ext}>
+    <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="16" height="15" rx="1.5"/><path d="M4 10h16M8 3v4M16 3v4"/></svg>
+    <span>Reserve<span class="sr-only"> on Resy (opens in a new tab)</span></span>
+  </a>
+</nav>

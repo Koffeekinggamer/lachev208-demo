@@ -2,10 +2,9 @@
 import { getCollection } from "astro:content";
 import Base from "../layouts/Base.astro";
 import Photo from "../components/Photo.astro";
-import LcpPreload from "../components/LcpPreload.astro";
+import HeroPicture from "../components/HeroPicture.astro";
+import HeroLcpPreload from "../components/HeroLcpPreload.astro";
 import { url, pages, site, takeoutIsOnline } from "../lib";
-import poster from "../assets/photos/house-and-patio.jpg";
-import patioHero from "../assets/photos/patio-table.jpg";
 import lamb from "../assets/photos/smoked-rack-of-lamb.jpg";
 import flounder from "../assets/photos/crab-stuffed-flounder.jpg";
 import martini from "../assets/photos/espresso-martini.jpg";
@@ -27,24 +26,28 @@ const jsonLd = {
 ---
 <Base title="La Chev 208 · French restaurant & bar in Summerville, SC" description="Refined French dining, a lively backyard patio and a serious wine and spirits list at 208 East 1st North Street, Summerville, SC." jsonLd={jsonLd}>
   <Fragment slot="head">
-    <LcpPreload src={poster} widths={[640, 960, 1280]} sizes="100vw" />
+    <HeroLcpPreload />
   </Fragment>
   <section class="hero" aria-label="Welcome">
     <div class="hero__media" data-parallax>
       <div class="hero__slides" data-hero-slides>
         <div class="hero__slide is-current" data-ken="a">
-          <Photo src={poster} alt="" sizes="100vw" widths={[640, 960, 1280]} eager parallax={false} />
+          <HeroPicture name="house-and-patio" eager alt="The white La Chev 208 house with its metal roof and front porch, an oval LA CHEV 208 sign out front, and the backyard patio below with chairs, a fire pit and tall patio heaters." />
         </div>
       </div>
       <template data-hero-more>
         <div class="hero__slide" data-ken="b">
-          <Photo src={patioHero} alt="" sizes="100vw" widths={[640, 800]} parallax={false} />
+          <HeroPicture name="patio-table" alt="Two plates on a backyard patio table, chicken and waffles and a bacon-and-egg breakfast, under a red umbrella with the garden and a lit La Chev sign behind." />
         </div>
         <div class="hero__slide" data-ken="c">
-          <Photo src={team} alt="" sizes="100vw" widths={[640, 960, 1280]} parallax={false} />
+          <HeroPicture name="kitchen-team-wide" alt="Three members of the La Chev kitchen team smiling in a bright kitchen behind a long board of charcuterie, cheese, olives and pickles." />
         </div>
       </template>
     </div>
+    <button type="button" class="hero__pause" data-hero-pause aria-label="Pause slideshow" data-state="playing" hidden>
+      <svg class="hero__pause-icon hero__pause-icon--pause" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>
+      <svg class="hero__pause-icon hero__pause-icon--play" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M8 5.2v13.6a.8.8 0 0 0 1.2.7l11-6.8a.8.8 0 0 0 0-1.4l-11-6.8A.8.8 0 0 0 8 5.2z"/></svg>
+    </button>
     <div class="wrap">
       <div class="hero__copy">
         <span class="eyebrow">French dining · Summerville</span>
@@ -54,6 +57,10 @@ const jsonLd = {
           <a class="btn btn--solid" href={site.links.resy} {...ext}>Reserve a table<span class="sr-only"> on Resy (opens in a new tab)</span></a>
           <a class="btn btn--ghost" href={url(pages.food)}>See the menu</a>
         </div>
+        <p class="hero__meta">
+          <span class="status" data-open-status><i class="status__dot" aria-hidden="true"></i><span class="status__text">Open daily · Summerville, SC</span></span>
+          <a href={site.phoneHref}>{site.phone}</a>
+        </p>
       </div>
     </div>
   </section>
