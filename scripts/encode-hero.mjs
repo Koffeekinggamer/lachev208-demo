@@ -5,7 +5,8 @@ import path from "node:path";
 const dir = "/workspace/lachev208-demo/src/assets/hero-enhanced";
 const masters = {
   "house-and-patio": "/tmp/hero-work/house-and-patio.master.png",
-  "patio-table": "/tmp/hero-work/patio-table.master.png",
+  // patio-table reads the committed master so a re-encode keeps the re-graded 243 table and the pink plate-shadow streak.
+  "patio-table": path.join(dir, "patio-table.jpg"),
   "kitchen-team-wide": "/tmp/hero-work/kitchen-team-wide.master.png",
 };
 const targetWidths = {
