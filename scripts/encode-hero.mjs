@@ -1,14 +1,13 @@
 import sharp from "sharp";
 import { writeFileSync } from "node:fs";
 import path from "node:path";
+import os from "node:os";
 
 const dir = "/workspace/lachev208-demo/src/assets/hero-enhanced";
-const masters = {
-  "house-and-patio": "/tmp/hero-work/house-and-patio.master.png",
-  // patio-table reads the committed master so a re-encode keeps the re-graded 243 table and the pink plate-shadow streak.
-  "patio-table": path.join(dir, "patio-table.jpg"),
-  "kitchen-team-wide": "/tmp/hero-work/kitchen-team-wide.master.png",
-};
+// Committed masters only (high-quality 4:4:4 JPG), so a re-encode reproduces the shipped derivatives.
+const masters = Object.fromEntries(
+  ["house-and-patio", "patio-table", "kitchen-team-wide"].map((n) => [n, path.join(dir, `${n}.jpg`)]),
+);
 const targetWidths = {
   "house-and-patio": [780, 1640, 2880, 3840],
   "patio-table": [780, 1640, 2880, 3200],
@@ -66,5 +65,5 @@ for (const [name, src] of Object.entries(masters)) {
     console.log(row);
   }
 }
-writeFileSync("/tmp/hero-work/encode-report.json", JSON.stringify(report, null, 2));
+writeFileSync(path.join(os.tmpdir(), "encode-report.json"), JSON.stringify(report, null, 2));
 console.log("done");
