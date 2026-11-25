@@ -3,10 +3,13 @@ import { getCollection } from "astro:content";
 import Base from "../layouts/Base.astro";
 import PageHero from "../components/PageHero.astro";
 import Photo from "../components/Photo.astro";
+import EventAutoHide from "../components/EventAutoHide.astro";
 import { url, pages, site } from "../lib";
+import { upcomingEvents, eventEndsAt } from "../events";
 import hero from "../assets/photos/kitchen-team-wide.jpg";
 import desserts from "../assets/photos/desserts-for-a-party.jpg";
-const events = (await getCollection("events", (e) => e.data.published)).sort((a, b) => +a.data.date - +b.data.date);
+// Ended events are dropped at build time; EventAutoHide also hides them in the browser if this build is stale.
+const events = upcomingEvents(await getCollection("events", (e) => e.data.published));
 const specials = (await getCollection("specials", (s) => s.data.active)).sort((a, b) => a.data.order - b.data.order);
 const ext = { target: "_blank", rel: "noopener" };
 const fmt = (d: Date) => d.toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric", year: "numeric", timeZone: "UTC" });
@@ -22,9 +25,9 @@ const fmt = (d: Date) => d.toLocaleDateString("en-US", { weekday: "long", month:
         <span class="eyebrow">Upcoming</span>
         <h2 id="events-h">Events</h2>
       </div>
-      <div class="events-list">
+      <div class="events-list" data-event-list>
         {events.map((e) => (
-          <article class="event" data-reveal>
+          <article class="event" data-reveal data-event-ends={eventEndsAt(e.data)}>
             {e.data.image && <div class="frame"><Photo src={e.data.image} alt={e.data.imageAlt} sizes="(min-width: 900px) 40vw, 100vw" /></div>}
             <div class="event__body">
               <p class="event__date"><time datetime={e.data.date.toISOString().slice(0, 10)}>{fmt(e.data.date)}</time> · {e.data.start} – {e.data.end}</p>
@@ -34,7 +37,12 @@ const fmt = (d: Date) => d.toLocaleDateString("en-US", { weekday: "long", month:
             </div>
           </article>
         ))}
+        <div class="notice" data-event-empty hidden={events.length > 0}>
+          <p class="lede">No events on the calendar right now.</p>
+          <p class="muted">Follow along on <a href={site.links.instagram} {...ext}>Instagram</a> or <a href={site.links.textClub} {...ext}>join our text club</a> to hear about the next one.</p>
+        </div>
       </div>
+      <EventAutoHide />
     </div>
   </section>
 

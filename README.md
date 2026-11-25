@@ -30,10 +30,18 @@ Move it to `.github/workflows/` with a token that has that scope and switch Page
 | Events (+ specials at `#specials`) | `/summerville-la-chev-208-events` |
 | Private parties & catering (`#catering`) | `/summerville-la-chev-208-party` |
 | Accessibility | `/accessibility-page-01` |
+| Privacy (draft, pending owner approval) | `/privacy` |
 
 Aliases (`/menu`, `/-party`, `/catering`, `/about`, `/gift-cards`, `/jobs`, …) are generated as meta-refresh pages for the preview
 (`astro.config.mjs → redirects`), each with `noindex, nofollow`. For a real launch on Cloudflare Pages, use `redirects/_redirects` (true 301s);
 the full map with notes is `redirects/redirect-map.csv`.
+
+## Events auto-hide
+
+An event disappears once its **end** time has passed in America/New_York (`src/events.ts`). Ended events are dropped at
+build time, and `EventAutoHide.astro` hides them in the browser too, so a stale build never shows a past event (home shows
+the next upcoming one; the events page falls back to a "no events" note). End at or before start = runs past midnight.
+To test a build as of a given moment: `EVENTS_NOW=2026-11-27T01:00:01Z npm run build`.
 
 ## Content (editable) vs design (locked)
 

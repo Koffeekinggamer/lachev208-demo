@@ -20,7 +20,7 @@
         },
         {
           "name": "Chevalier",
-          "description": "Mesculin, strawberry, goat cheese, pecan.",
+          "description": "Mesclun, strawberry, goat cheese, pecan.",
           "prices": [
             {
               "amount": "12",
@@ -60,7 +60,7 @@
         },
         {
           "name": "Cobb Salad",
-          "description": "Blaconed salmon, egg, bacon, avocado, tomato, gorgonzola, pickled red onions, buttermilk herb dressing",
+          "description": "Blackened salmon, egg, bacon, avocado, tomato, gorgonzola, pickled red onions, buttermilk herb dressing",
           "prices": [
             {
               "amount": "20",
@@ -103,7 +103,7 @@
       "note": "",
       "items": [
         {
-          "name": "Pomme Frites",
+          "name": "Pommes Frites",
           "description": "Duck fat, rosemary, shaved gruyere, rouille.",
           "prices": [
             {

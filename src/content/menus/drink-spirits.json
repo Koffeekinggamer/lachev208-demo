@@ -589,16 +589,6 @@
           ]
         },
         {
-          "name": "Elijah Craig Toasted Barrel",
-          "description": "",
-          "prices": [
-            {
-              "amount": "15",
-              "unit": ""
-            }
-          ]
-        },
-        {
           "name": "Rabbit Hole Boxergrail",
           "description": "",
           "prices": [
@@ -757,7 +747,7 @@
           ]
         },
         {
-          "name": "Kettie One",
+          "name": "Ketel One",
           "description": "",
           "prices": [
             {
@@ -843,7 +833,7 @@
           ]
         },
         {
-          "name": "Bombay Saphire",
+          "name": "Bombay Sapphire",
           "description": "",
           "prices": [
             {
@@ -919,7 +909,7 @@
       "note": "",
       "items": [
         {
-          "name": "Lurazul Blanco (House)",
+          "name": "Lunazul Blanco (House)",
           "description": "",
           "prices": [
             {

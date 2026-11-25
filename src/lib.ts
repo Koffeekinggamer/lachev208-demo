@@ -10,6 +10,7 @@ export const pages = {
   events: "/summerville-la-chev-208-events",
   party: "/summerville-la-chev-208-party",
   accessibility: "/accessibility-page-01",
+  privacy: "/privacy",
 } as const;
 export const slug = (s: string) =>
   s.toLowerCase().replace(/&/g, "and").replace(/[’']/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");

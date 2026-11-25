@@ -485,3 +485,6 @@ address { font-style: normal; }
   .no-js .nav a:not(.btn) { min-height: 2.75rem; font-family: var(--sans); font-size: 0.8125rem; letter-spacing: 0.14em; text-transform: uppercase; border: 0; }
   .no-js .nav a:not(.btn)::after { display: none; }
 }
+
+/* Event auto-hide: [hidden] must win over component display rules. */
+[data-event-ends][hidden], [data-event-empty][hidden], [data-event-list][hidden] { display: none !important; }

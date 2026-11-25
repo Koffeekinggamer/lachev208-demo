@@ -1,0 +1,25 @@
+---
+/*
+ * Client-side half of the event auto-hide (the build already drops events that had ended at build time).
+ * Every event element carries data-event-ends (epoch ms of its END time in America/New_York). A list marked
+ * data-event-list hides ended events; data-event-limit caps how many stay visible (home shows only the next one).
+ * When nothing is left, the list's [data-event-empty] fallback is shown. Place after the lists it controls.
+ */
+---
+<script is:inline>
+  (function () {
+    var now = Date.now();
+    document.querySelectorAll("[data-event-list]").forEach(function (list) {
+      var limit = Number(list.getAttribute("data-event-limit")) || Infinity;
+      var shown = 0;
+      list.querySelectorAll("[data-event-ends]").forEach(function (el) {
+        var live = Number(el.getAttribute("data-event-ends")) > now && shown < limit;
+        el.hidden = !live;
+        if (live) shown++;
+      });
+      var empty = list.querySelector("[data-event-empty]");
+      if (empty) empty.hidden = shown > 0;
+      if (list.hasAttribute("data-event-hide-when-empty")) list.hidden = shown === 0;
+    });
+  })();
+</script>
