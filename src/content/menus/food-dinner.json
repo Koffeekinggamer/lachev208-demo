@@ -20,7 +20,7 @@
         },
         {
           "name": "Chevalier",
-          "description": "Mesculin, strawberry, goat cheese, pecan.",
+          "description": "Mesclun, strawberry, goat cheese, pecan.",
           "prices": [
             {
               "amount": "12",
@@ -113,7 +113,7 @@
           ]
         },
         {
-          "name": "Pomme Frites",
+          "name": "Pommes Frites",
           "description": "Duck fat, rosemary, shaved gruyere, rouille.",
           "prices": [
             {
@@ -250,7 +250,7 @@
         },
         {
           "name": "*Filet Mignon",
-          "description": "Roasted cauliflower puree, Brussels, bacon, demi glaze",
+          "description": "Roasted cauliflower puree, Brussels, bacon, demi-glace",
           "prices": [
             {
               "amount": "46",

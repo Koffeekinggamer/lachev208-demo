@@ -30,7 +30,7 @@
         },
         {
           "name": "Whiskey Wisper",
-          "description": "Disaronno Woodford Double Oaked, Knob Creek,",
+          "description": "Disaronno, Woodford Double Oaked, Knob Creek",
           "prices": [
             {
               "amount": "18",
@@ -59,7 +59,7 @@
           ]
         },
         {
-          "name": "Carmel Appletini",
+          "name": "Caramel Appletini",
           "description": "Salted caramel vodka, Apple cider, Cinnamon sugar rim",
           "prices": [
             {
@@ -109,7 +109,7 @@
           ]
         },
         {
-          "name": "Autum Rum Punch",
+          "name": "Autumn Rum Punch",
           "description": "Dark Rum, Orange Juice, Apple Cider, Cinnamon",
           "prices": [
             {
@@ -146,7 +146,7 @@
       "items": [
         {
           "name": "Amalfi Spritz",
-          "description": "Veuve de vernay, orange juice, lemon, soda.",
+          "description": "Veuve du Vernay, orange juice, lemon, soda.",
           "prices": [
             {
               "amount": "10",

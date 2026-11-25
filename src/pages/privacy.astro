@@ -1,0 +1,37 @@
+---
+import Base from "../layouts/Base.astro";
+import PageHero from "../components/PageHero.astro";
+import { site } from "../lib";
+import hero from "../assets/photos/wild-mushroom-risotto.jpg";
+// DRAFT pending owner approval. Plain-language summary, not legal advice. Keep the draft notice until the owner signs off.
+---
+<Base title="Privacy (draft) · La Chev 208" description="A plain-language summary of what the La Chev 208 website and its outside booking, gift-card and inquiry providers collect. Draft pending owner approval." current="privacy">
+  <PageHero image={hero} alt="A plate of wild mushroom risotto" eyebrow="Privacy" title="Your information" position="50% 50%">
+    <p>A short, plain-language summary of what this site collects and who handles it.</p>
+  </PageHero>
+  <section class="section">
+    <div class="wrap--narrow prose" data-reveal-group>
+      <div class="notice" role="note" aria-label="Draft notice">
+        <p class="lede"><strong>Draft: pending owner approval.</strong></p>
+        <p class="muted">This page is a plain-language draft for La Chev 208 to review. It is not legal advice and isn’t final until the owner approves it.</p>
+      </div>
+      <h2>This website</h2>
+      <p>The site itself has no accounts, sign-up forms, analytics or advertising trackers, and it doesn’t set cookies of its own. Like any website, the company that hosts it may keep basic technical logs (such as IP address and browser type) to keep the site secure and running.</p>
+      <h2>Outside services</h2>
+      <p>Some things on the site are handled by other companies. When you use them, you’re on their service and their own privacy policy applies:</p>
+      <ul>
+        <li><strong>Reservations</strong>: Resy.</li>
+        <li><strong>Gift cards</strong>: Toast.</li>
+        <li><strong>Party and catering inquiries, the text club and job listings</strong>: SpotHopper.</li>
+        <li><strong>Directions</strong>: Google Maps. <strong>Social links</strong>: Instagram and Facebook.</li>
+      </ul>
+      <h2>Text messages</h2>
+      <p>If you join our text club, your phone number and consent to receive messages are collected and managed through SpotHopper. You can opt out using the instructions in the messages, or by contacting us.</p>
+      <h2>Email and phone</h2>
+      <p>If you email or call us, we use your details to answer you and to handle your reservation, party or catering request.</p>
+      <h2>Questions</h2>
+      <p>Email <a href={`mailto:${site.email}`}>{site.email}</a> or call <a href={site.phoneHref}>{site.phone}</a>.</p>
+      <p class="muted">Draft prepared November 2026.</p>
+    </div>
+  </section>
+</Base>

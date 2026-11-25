@@ -155,18 +155,8 @@
           ]
         },
         {
-          "name": "Daou · Sauvignon Blanc",
-          "description": "Paso Robles, California · 2022",
-          "prices": [
-            {
-              "amount": "48",
-              "unit": "BTL"
-            }
-          ]
-        },
-        {
           "name": "Louis Jadot · Chardonnay",
-          "description": "Mȃcon-Villages Burgundy, France · 2023",
+          "description": "Mâcon-Villages Burgundy, France · 2023",
           "prices": [
             {
               "amount": "52",
@@ -231,7 +221,7 @@
           ]
         },
         {
-          "name": "Domaine la Villaudière Pouilly- Fumé · Sauvingon Blanc",
+          "name": "Domaine la Villaudière Pouilly-Fumé · Sauvignon Blanc",
           "description": "Loire Valley, France · 2023",
           "prices": [
             {
@@ -380,7 +370,7 @@
         },
         {
           "name": "Bonfante & Chiarle · Arneis",
-          "description": "Langhe, France · 2020",
+          "description": "Langhe, Italy · 2020",
           "prices": [
             {
               "amount": "60",
@@ -664,7 +654,7 @@
         },
         {
           "name": "JL Chave Mon Coeur · Grenache-Syrah",
-          "description": "Cȏtes-Du-Rhȏne, France · 2022",
+          "description": "Côtes-du-Rhône, France · 2022",
           "prices": [
             {
               "amount": "17",
@@ -722,7 +712,7 @@
         },
         {
           "name": "Bezel · Pinot Noir",
-          "description": "Bezel · Pinot NoirSan Luis Obispo, California · 2023",
+          "description": "San Luis Obispo, California · 2023",
           "prices": [
             {
               "amount": "84",
@@ -803,7 +793,7 @@
       "note": "",
       "items": [
         {
-          "name": "Twenty Acres · Cabernet Sauvingon",
+          "name": "Twenty Acres · Cabernet Sauvignon",
           "description": "Clarksburg, California · 2021",
           "prices": [
             {
@@ -1022,7 +1012,7 @@
         },
         {
           "name": "The Critic · Cabernet Sauvignon",
-          "description": "The Critic · Cabernet SauvignonNapa Valley, California · 2023",
+          "description": "Napa Valley, California · 2023",
           "prices": [
             {
               "amount": "17",
@@ -1057,7 +1047,7 @@
           ]
         },
         {
-          "name": "Poggio le Volpi ‘Baccarossa · Nero Buono",
+          "name": "Poggio le Volpi ‘Baccarossa’ · Nero Buono",
           "description": "Lazio, Italy · 2021",
           "prices": [
             {
@@ -1067,7 +1057,7 @@
           ]
         },
         {
-          "name": "Trambusti Celsius 1934’ · Petite Verdot",
+          "name": "Trambusti Celsius 1934 · Petit Verdot",
           "description": "Brunello di Montalcino, Italy · 2023",
           "prices": [
             {
@@ -1106,7 +1096,7 @@
         },
         {
           "name": "Il Fauno di Arcanum · Red Blend",
-          "description": "Il Fauno di Arcanum · Red BlendTuscany, Italy · 2020",
+          "description": "Tuscany, Italy · 2020",
           "prices": [
             {
               "amount": "124",
@@ -1115,7 +1105,7 @@
           ]
         },
         {
-          "name": "Domaine de Cristia · Châteaunuef-Du-Pape",
+          "name": "Domaine de Cristia · Châteauneuf-du-Pape",
           "description": "Rhone, France · 2022",
           "prices": [
             {
@@ -1134,7 +1124,7 @@
         },
         {
           "name": "Darioush · Cabernet Sauvignon",
-          "description": "Darioush · Cabernet SauvignonNapa Valley, California · 2020",
+          "description": "Napa Valley, California · 2020",
           "prices": [
             {
               "amount": "45",
@@ -1552,7 +1542,7 @@
       "items": [
         {
           "name": "Sauvignon Blanc Flight",
-          "description": "Sauvignon Blanc Flight Jacques Dumont, Rongopai, Frank Millet Sancerre.",
+          "description": "Jacques Dumont, Rongopai, Frank Millet Sancerre.",
           "prices": [
             {
               "amount": "23",
@@ -1572,7 +1562,7 @@
         },
         {
           "name": "Grand Marnier Flight",
-          "description": "Grand Marnier, Grand Marnier Cuvée Du Centenaire, Grand Marnier Revélacion.",
+          "description": "Grand Marnier, Grand Marnier Cuvée Du Centenaire, Grand Marnier Révélation.",
           "prices": [
             {
               "amount": "70",

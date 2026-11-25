@@ -49,7 +49,7 @@
           ]
         },
         {
-          "name": "Pomme Frites",
+          "name": "Pommes Frites",
           "description": "Duck fat, rosemary, shaved gruyère, rouille.",
           "prices": [
             {
@@ -142,7 +142,7 @@
         },
         {
           "name": "Avocado Toast",
-          "description": "Confit tomato, pickled onion, sunny up eggs.",
+          "description": "Confit tomato, pickled onion, sunny-side-up eggs.",
           "prices": [
             {
               "amount": "18",
@@ -188,7 +188,7 @@
         },
         {
           "name": "Grilled Chorizo",
-          "description": "Potato hash, sunny up eggs, hot honey.",
+          "description": "Potato hash, sunny-side-up eggs, hot honey.",
           "prices": [
             {
               "amount": "24",
@@ -198,7 +198,7 @@
         },
         {
           "name": "Duck Hash",
-          "description": "Grilled potato, peppers, onions, sunny up eggs.",
+          "description": "Grilled potato, peppers, onions, sunny-side-up eggs.",
           "prices": [
             {
               "amount": "24",
@@ -208,7 +208,7 @@
         },
         {
           "name": "Steak & Eggs",
-          "description": "Duck fat fries, entrecote sauce, sunny up eggs.",
+          "description": "Duck fat fries, entrecote sauce, sunny-side-up eggs.",
           "prices": [
             {
               "amount": "42",

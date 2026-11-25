@@ -4,7 +4,9 @@ import Base from "../layouts/Base.astro";
 import Photo from "../components/Photo.astro";
 import HeroPicture from "../components/HeroPicture.astro";
 import HeroLcpPreload from "../components/HeroLcpPreload.astro";
+import EventAutoHide from "../components/EventAutoHide.astro";
 import { url, pages, site, takeoutIsOnline } from "../lib";
+import { upcomingEvents, eventEndsAt } from "../events";
 import lamb from "../assets/photos/smoked-rack-of-lamb.jpg";
 import flounder from "../assets/photos/crab-stuffed-flounder.jpg";
 import martini from "../assets/photos/espresso-martini.jpg";
@@ -14,8 +16,9 @@ import team from "../assets/photos/kitchen-team-wide.jpg";
 
 const gallery = (await getCollection("gallery")).sort((a, b) => a.data.order - b.data.order).slice(0, 6);
 const ext = { target: "_blank", rel: "noopener" };
-const nextEvent = (await getCollection("events", (e) => e.data.published))
-  .sort((a, b) => +a.data.date - +b.data.date)[0];
+// Upcoming events (ended ones dropped at build). Only the first is shown; EventAutoHide moves on to the next
+// one in the browser once it ends, so a stale build never advertises a past event.
+const upcoming = upcomingEvents(await getCollection("events", (e) => e.data.published));
 const jsonLd = {
   "@context": "https://schema.org", "@type": "Restaurant", name: site.name, servesCuisine: "French",
   telephone: "+1-843-285-5141", email: site.email, acceptsReservations: site.links.resy,
@@ -151,21 +154,26 @@ const jsonLd = {
     </div>
   </section>
 
-  {nextEvent && (
-    <section class="section section--tight" aria-labelledby="next-h">
-      <div class="wrap split">
-        <div class="stack" data-reveal-group>
-          <span class="eyebrow">Coming up</span>
-          <h2 id="next-h">{nextEvent.data.title}</h2>
-          <p class="lede">{nextEvent.data.date.toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric", timeZone: "UTC" })} · {nextEvent.data.start} – {nextEvent.data.end}</p>
-          <p class="muted">{nextEvent.data.summary}</p>
-          <a class="link-arrow" href={url(pages.events)}>All events &amp; specials</a>
-        </div>
-        <div data-reveal>
-          <div class="frame frame--wide"><Photo src={desserts} alt="Rows of plated desserts ready for a celebration" sizes="(min-width: 900px) 45vw, 100vw" /></div>
-        </div>
-      </div>
-    </section>
+  {upcoming.length > 0 && (
+    <div data-event-list data-event-limit="1" data-event-hide-when-empty>
+      {upcoming.map((ev, i) => (
+        <section class="section section--tight" aria-labelledby={`next-h-${i}`} data-event-ends={eventEndsAt(ev.data)} hidden={i > 0}>
+          <div class="wrap split">
+            <div class="stack" data-reveal-group>
+              <span class="eyebrow">Coming up</span>
+              <h2 id={`next-h-${i}`}>{ev.data.title}</h2>
+              <p class="lede">{ev.data.date.toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric", timeZone: "UTC" })} · {ev.data.start} – {ev.data.end}</p>
+              <p class="muted">{ev.data.summary}</p>
+              <a class="link-arrow" href={url(pages.events)}>All events &amp; specials</a>
+            </div>
+            <div data-reveal>
+              <div class="frame frame--wide"><Photo src={desserts} alt="Rows of plated desserts ready for a celebration" sizes="(min-width: 900px) 45vw, 100vw" /></div>
+            </div>
+          </div>
+        </section>
+      ))}
+      <EventAutoHide />
+    </div>
   )}
 
   <section class="section section--surface" id="visit" aria-labelledby="visit-h">
